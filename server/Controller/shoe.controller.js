@@ -42,4 +42,35 @@ shoeController.post(
   }
 );
 
+shoeController.patch(
+  "/update/:id",
+  authentication,
+  autorization(["Admin"]),
+  async (req, res) => {
+    const { id } = req.params;
+    const payload = req.body;
+
+    const updatedShoesData = await Shoe.findByIdAndUpdate(
+      { _id: id },
+      { ...payload }
+    );
+    console.log(updatedShoesData);
+    res.status(201).send({ msg: "Shoe details updated" });
+  }
+);
+
+shoeController.delete(
+  "/remove/:id",
+  authentication,
+  autorization(["Admin"]),
+  async (req, res) => {
+    const { id } = req.params;
+    const deleteShoe = await Shoe.findByIdAndDelete({ _id: id });
+
+    console.log(deleteShoe);
+
+    res.status(201).send({ msg: "Shoe deleted" });
+  }
+);
+
 module.exports = { shoeController };
