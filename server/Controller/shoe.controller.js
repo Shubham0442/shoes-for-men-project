@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { authentication } = require("../Middlewares/Authenticate");
-const { autorization } = require("../Middlewares/Autorization");
+const { authentication } = require("../Middlewares/authenticate");
+const { autorization } = require("../Middlewares/autorization");
 const { Shoe } = require("../Models/shoe.model");
 require("dotenv").config();
 
@@ -25,7 +25,7 @@ shoeController.post(
 );
 
 shoeController.post(
-  "/createMany",
+  "/createmany",
   authentication,
   autorization(["Admin"]),
   async (req, res) => {
@@ -68,7 +68,6 @@ shoeController.delete(
     const deleteShoe = await Shoe.findByIdAndDelete({ _id: id });
 
     console.log(deleteShoe);
-
     res.status(201).send({ msg: "Shoe deleted" });
   }
 );

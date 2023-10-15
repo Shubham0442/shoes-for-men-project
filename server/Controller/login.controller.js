@@ -15,7 +15,7 @@ loginController.post("/", async function (req, res) {
     const hash = user.password;
     bcrypt.compare(password, hash, async function (error, result) {
       if (error)
-        res.status(401).send({ msg: "something went wrong try again" });
+        res.status(401).send({ msg: "something went wrong, please try again" });
       else if (result === true) {
         const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
         res.status(201).send({
@@ -30,7 +30,7 @@ loginController.post("/", async function (req, res) {
             email: user.email
           }
         });
-      } else res.send({ msg: "something went wrong" });
+      } else res.send({ msg: "something went wrong, please try again" });
     });
   }
 });
