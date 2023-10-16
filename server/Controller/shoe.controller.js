@@ -6,10 +6,25 @@ require("dotenv").config();
 
 const shoeController = Router();
 
+const setQuery = (brand, category, Rate) => {
+  const filter = {};
+  if (brand) filter.brand = { $in: brand };
+  if (category) filter.category = { $in: category };
+  if (Rate) filter.Rate = { $in: Rate };
+  return filter;
+};
+
 shoeController.get("/", async (req, res) => {
-  const { skip, limit } = req.body;
-  const shoeData = await Shoe.find().skip(skip).limit(limit);
-  res.status(200).send({ shoesData: shoeData });
+  const { skip, limit, brand, category, Rate, order } = req.query;
+
+  if (skip && limit) {
+    const query = setQuery(brand, category, Rate);
+    const shoeData = await Shoe.find(query)
+      .sort({ price: order })
+      .skip(Number(skip))
+      .limit(Number(limit));
+    res.status(200).send({ shoesData: shoeData });
+  }
 });
 
 shoeController.post(

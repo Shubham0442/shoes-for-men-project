@@ -32,7 +32,6 @@ const AccountPopover = () => {
   const btnRef = React.useRef()
   const authUser = useSelector((state)=>state.userAuthReducer) 
   const isAdmin = useSelector((state)=>state.adminAuthReducer)
-  let cart = useSelector((state)=>state.cartReducer.tempCart)
   const dispatch = useDispatch()
   const LogoutToast = useToast()
   const navigate = useNavigate()
@@ -102,7 +101,7 @@ const AccountPopover = () => {
       onClose()
   }
 
-  //console.log("pop",authUser)
+  console.log("pop", authUser)
 
   return (
     <>

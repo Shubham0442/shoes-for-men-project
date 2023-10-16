@@ -23,7 +23,7 @@ loginController.post("/", async function (req, res) {
           token: token,
           user: {
             id: user._id,
-            name: user.firstname,
+            firstname: user.firstname,
             lastname: user.lastname,
             mobile: user.mobile,
             cosign: user.cosign,
