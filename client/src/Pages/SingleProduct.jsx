@@ -14,17 +14,13 @@ import {
   TableCaption,
   TableContainer
 } from "@chakra-ui/react";
-import {
-  addToCart,
-  assignCartToUser,
-  getTempCart
-} from "../Redux/CartRedux/action";
+import { addToCart, getCart } from "../Redux/CartRedux/action";
 
 const SingleProduct = () => {
   let { _id } = useParams();
   const shoeData = useSelector((state) => state.appReducer.productData);
   const isUser = useSelector((state) => state.userAuthReducer.isAuthUser);
-  const userData = useSelector((state) => state.userAuthReducer.userData);
+  const token = useSelector((state) => state.userAuthReducer.token);
   const dispatch = useDispatch();
   const addProductCartToast = useToast();
   const forceLoginToast = useToast();
@@ -32,13 +28,10 @@ const SingleProduct = () => {
   const [currentPic, setCurrentPic] = useState("");
 
   const handleAddToCart = () => {
-    if (isUser === true) {
-      dispatch(addToCart(currentShoe)).then((res) => {
+    if (isUser === true && token) {
+      dispatch(addToCart(currentShoe, token)).then((res) => {
         if (res.type === "ADD_TO_CART_SUCCESS") {
-          dispatch(getTempCart()).then((res) => {
-            if (res.type === "GET_CART_DATA")
-              dispatch(assignCartToUser(userData.id, res.payload));
-          });
+          dispatch(getCart(token));
           addProductCartToast({
             title: "Product added to Cart",
             status: "info",
@@ -70,11 +63,9 @@ const SingleProduct = () => {
   }, [_id, shoeData]);
 
   const handlePicChange = (a) => {
-    if (currentShoe?.images?.length === 4) {
+    if (currentShoe?.images?.length === 4)
       currentShoe?.images?.push(currentShoe.cover);
-    } else if (currentShoe?.images?.length === 5) {
-      setCurrentPic(a);
-    }
+    else if (currentShoe?.images?.length === 5) setCurrentPic(a);
   };
 
   return (
@@ -103,16 +94,16 @@ const SingleProduct = () => {
               display={"block"}
             />
           </Box>
-
           <Box>
             <Flex w={"80%"} m={"auto"} gap="10px" pt={"15px"}>
-              {currentShoe?.images?.map((ele) => (
+              {currentShoe?.images?.map((ele, i) => (
                 <Box
-                  key={ele?._id}
+                  key={i}
                   border="1px solid #e1e1e1"
                   w={"20%"}
                   p="8px"
                   m={"auto"}
+                  cursor="pointer"
                   onClick={() => handlePicChange(ele)}
                 >
                   <Image

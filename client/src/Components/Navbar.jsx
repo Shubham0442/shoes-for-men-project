@@ -3,36 +3,31 @@ import {
   Flex,
   IconButton,
   Image,
-  Collapse,
-  ScaleFade,
-  Slide,
   SlideFade,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { IoMdCart } from "react-icons/io";
 import { FaOpencart } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPopover from "./AccountPopover";
-import { getTempCart } from "../Redux/CartRedux/action";
+import { getCart } from "../Redux/CartRedux/action";
 import { useEffect } from "react";
 
 const Navbar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
   const authUser = useSelector((state) => state.userAuthReducer);
-  const userData = useSelector((state) => state.userAuthReducer.userData);
+  const token = useSelector((state) => state.userAuthReducer.token);
   const isAdmin = useSelector((state) => state.adminAuthReducer);
   const cart = useSelector((state) => state.cartReducer.tempCart);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cart.length === 0) dispatch(getTempCart());
-  }, [cart.length]);
+    if (cart.length === 0 && token) dispatch(getCart(token));
+  }, [cart.length, token]);
 
   const cartLength = cart.reduce((acc, elem) => acc + elem.Qty, 0);
 

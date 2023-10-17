@@ -27,6 +27,11 @@ shoeController.get("/", async (req, res) => {
   }
 });
 
+shoeController.get("/dashboard", async (req, res) => {
+  const shoeData = await Shoe.find();
+  res.status(200).send({ shoesData: shoeData });
+});
+
 shoeController.post(
   "/create",
   authentication,
@@ -69,7 +74,7 @@ shoeController.patch(
       { _id: id },
       { ...payload }
     );
-    console.log(updatedShoesData);
+
     res.status(201).send({ msg: "Shoe details updated" });
   }
 );
@@ -82,7 +87,6 @@ shoeController.delete(
     const { id } = req.params;
     const deleteShoe = await Shoe.findByIdAndDelete({ _id: id });
 
-    console.log(deleteShoe);
     res.status(201).send({ msg: "Shoe deleted" });
   }
 );

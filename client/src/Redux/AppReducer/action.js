@@ -27,11 +27,15 @@ export const getShoesData = (q) => (dispatch) => {
     });
 };
 
-export const addProduct = (productInfo) => (dispatch) => {
+export const addProduct = (productInfo, token) => (dispatch) => {
   dispatch({ type: ADD_PRODUCT_REQUEST });
 
-  return axios
-    .post(`${process.env.REACT_APP_BASE_URL}/shoeData`, productInfo)
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/shoes/create`,
+    method: "post",
+    headers: { Authorization: `Bearer ${token}` },
+    data: productInfo
+  })
     .then((res) => {
       return dispatch({ type: ADD_PRODUCT_SUCCESS, payload: res });
     })
@@ -40,11 +44,14 @@ export const addProduct = (productInfo) => (dispatch) => {
     });
 };
 
-export const deleteProduct = (id) => (dispatch) => {
+export const deleteProduct = (id, token) => (dispatch) => {
   dispatch({ type: DELETE_PRODUCT_REQUEST });
 
-  return axios
-    .delete(`${process.env.REACT_APP_BASE_URL}/shoeData/${id}`)
+  return axios({
+    method: "delete",
+    url: `${process.env.REACT_APP_BASE_URL}/shoes/remove/${id}`,
+    headers: { Authorization: `Bearer ${token}` }
+  })
     .then(() => {
       return dispatch({ type: DELETE_PRODUCT_SUCCESS });
     })

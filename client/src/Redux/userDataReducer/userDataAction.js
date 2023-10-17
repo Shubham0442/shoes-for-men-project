@@ -1,30 +1,39 @@
-import axios from "axios"
-import { GET_USERS_DATA_FAILURE, GET_USERS_DATA_REQUEST, GET_USERS_DATA_SUCCESS, UPDATE_USER_ORDER_STATUE } from "./userDataActionTypes"
+import axios from "axios";
+import {
+  GET_USERS_DATA_FAILURE,
+  GET_USERS_DATA_REQUEST,
+  GET_USERS_DATA_SUCCESS,
+  UPDATE_USER_ORDER_STATUE
+} from "./userDataActionTypes";
 
-export const getUserData = ()=> (dispatch)=>{
-    dispatch({type : GET_USERS_DATA_REQUEST})
+export const getUserData = (token) => (dispatch) => {
+  dispatch({ type: GET_USERS_DATA_REQUEST });
 
-    return axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
-    .then((res)=>{
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/users`,
+    method: "get",
+    headers: { Authorization: `Bearer ${token}` }
+  })
+    .then((res) => {
+      return dispatch({
+        type: GET_USERS_DATA_SUCCESS,
+        payload: res.data.users
+      });
+    })
+    .catch((error) => {
+      dispatch({ type: GET_USERS_DATA_FAILURE });
+    });
+};
 
-        //console.log("userData", res.data)
-       return dispatch({type: GET_USERS_DATA_SUCCESS, payload : res.data})
-        
+export const updateUserOrderStatus = (id, newStatus) => (dispatch) => {
+  return axios
+    .patch(`${process.env.REACT_APP_BASE_URL}/users/${id}`, {
+      order_status: newStatus
     })
-    .catch((error)=>{
-        dispatch({type : GET_USERS_DATA_FAILURE})
+    .then((res) => {
+      return dispatch({ type: UPDATE_USER_ORDER_STATUE });
     })
-} 
-
-export const updateUserOrderStatus = (id, newStatus)=>(dispatch)=>{
-
-    return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/${id}`, {
-        order_status: newStatus
-    })
-    .then((res)=>{
-       return dispatch({type: UPDATE_USER_ORDER_STATUE})
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-}
+    .catch((error) => {
+      console.log(error);
+    });
+};

@@ -10,8 +10,6 @@ orderController.get("/", authentication, async (req, res) => {
 
   const allOrders = await Order.find({ userId });
 
-  console.log(allOrders);
-
   res.status(201).send({ orders: allOrders });
 });
 
@@ -30,7 +28,6 @@ orderController.patch(
   async (req, res) => {
     const { id } = req.params;
     const updatedOrder = await Order.findByIdAndUpdate({ _id: id });
-    console.log(updatedOrder);
     res.status(201).send({ msg: "Order details update" });
   }
 );

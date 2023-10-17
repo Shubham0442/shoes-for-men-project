@@ -8,6 +8,7 @@ const { shoeController } = require("./Controller/shoe.controller");
 const { cartController } = require("./Controller/cart.controller");
 const { addressController } = require("./Controller/address.controller");
 const { orderController } = require("./Controller/order.controller");
+const { userController } = require("./Controller/user.controller");
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use("/shoes", shoeController);
 app.use("/cart", cartController);
 app.use("/address", addressController);
 app.use("/orders", orderController);
+app.use("/users", userController);
 
 const PORT = process.env.PORT || 5050;
 

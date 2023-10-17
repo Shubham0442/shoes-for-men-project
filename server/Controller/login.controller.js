@@ -12,9 +12,9 @@ loginController.post("/", async function (req, res) {
   const user = await User.findOne({ email: email });
 
   if (user) {
-    const hash = user.password;
-    bcrypt.compare(password, hash, async function (error, result) {
-      if (error)
+    const hash = user?.password;
+    bcrypt.compare(password, hash, async function (_error, result) {
+      if (!result)
         res.status(401).send({ msg: "something went wrong, please try again" });
       else if (result === true) {
         const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
@@ -32,7 +32,8 @@ loginController.post("/", async function (req, res) {
         });
       } else res.send({ msg: "something went wrong, please try again" });
     });
-  }
+  } else
+    res.status(404).send({ msg: "something went wrong, please try again" });
 });
 
 module.exports = { loginController };

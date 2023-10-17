@@ -5,7 +5,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -14,39 +13,25 @@ import {
   Heading,
   Text,
   FormLabel,
-  Flex,
   useToast
 } from "@chakra-ui/react";
-
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogin } from "../Redux/UserAuthReducer/action";
 import Register from "./Register";
-import {
-  addToCart,
-  assignUserCartToTempCart,
-  getTempCart
-} from "../Redux/CartRedux/action";
-import {
-  addDeliveryAddress,
-  getDeliveryAddress
-} from "../Redux/deliveryAddressReducer/action";
+import { getCart } from "../Redux/CartRedux/action";
 import {
   addOrderDetails,
   getAllOrderDetails
 } from "../Redux/orderDetailsReducer/action";
+import { getDeliveryAddress } from "../Redux/deliveryAddressReducer/action";
 
 const Login = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const loginSuccessToast = useToast();
   const loginFailToast = useToast();
-  const isAuthUser = useSelector((state) => state.adminAuthReducer);
-  const userData = useSelector((state) => state.userAuthReducer.userData);
-  let cart = useSelector((state) => state.cartReducer.tempCart);
-
   const navigate = useNavigate();
-
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: ""
@@ -65,37 +50,9 @@ const Login = () => {
 
     dispatch(userLogin(loginForm)).then((res) => {
       if (res.type === "USER_LOGIN_SUCCESS") {
-        let userCart = res.payload.cart;
-        let userAddresses = res.payload.Multiple_delivery_addresses;
-        let userOrderHistory = res.payload.ordersHistory;
-        dispatch(getTempCart()).then((resp) => {
-          if (resp.type === "GET_CART_DATA") {
-            if (userCart.length > 0 && resp.payload.length === 0) {
-              for (let i = 0; i < userCart.length; i++) {
-                dispatch(addToCart(userCart[i]));
-              }
-            }
-          }
-
-          dispatch(getDeliveryAddress()).then((resp) => {
-            if (resp.type === "GET_DELIVERY_ADDRESS") {
-              if (userAddresses.length > 0 && resp.payload.length === 0) {
-                for (let i = 0; i < userAddresses.length; i++) {
-                  dispatch(addDeliveryAddress(userAddresses[i]));
-                }
-              }
-            }
-          });
-
-          dispatch(getAllOrderDetails()).then((resp) => {
-            if (resp.type === "GET_ORDER_DETAILS_SUCCESS") {
-              if (userOrderHistory.length > 0 && resp.payload.length === 0) {
-                for (let i = 0; i < userOrderHistory.length; i++) {
-                  dispatch(addOrderDetails(userOrderHistory[i]));
-                }
-              }
-            }
-          });
+        dispatch(getCart(res.payload?.token)).then((resp) => {
+          dispatch(getDeliveryAddress(res.payload?.token));
+          dispatch(getAllOrderDetails(res.payload?.token));
         });
         loginSuccessToast({
           title: "Login Successful.",
@@ -106,48 +63,20 @@ const Login = () => {
           position: "top"
         });
         navigate("/");
-      } else if (res.type === "ADMIN_LOGIN_SUCCESS") {
-        loginSuccessToast({
-          title: "Login Successful.",
-          description: `Welcome ${res.payload.firstname}.`,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "top"
-        });
-        navigate("/");
-      } else if (res === "INVALID_USER_CRIDENTIALS") {
+      } else if (res.type === "USER_LOGIN_FAILURE") {
         loginFailToast({
           title: "Invalid Cridentials.",
           description: "Please enter correct login cridentials.",
           status: "error",
           duration: 6000,
           isClosable: true,
-          position: "top"
-          //size:{{base:"xs", sm:"xs",}}
-        });
-      } else if (res === "INVALID_CRIDENTIALS") {
-        loginFailToast({
-          title: "Access Denied.",
-          description: "Please enter correct login cridentials.",
-          status: "error",
-          duration: 6000,
-          isClosable: true,
-          position: "top"
-          //size:{{base:"xs", sm:"xs",}}
+          position: "top-right"
         });
       }
     });
 
-    //  setLoginForm({
-    //   ...loginForm,
-    //   email : "",
-    //   password : ""
-    // })
     onClose();
   };
-
-  //console.log(isAuthUser)
 
   return (
     <Box>

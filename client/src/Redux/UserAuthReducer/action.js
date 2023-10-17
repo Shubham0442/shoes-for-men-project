@@ -8,12 +8,8 @@ import {
   USER_REGISTER_FAILURE,
   USER_LOGOUT
 } from "./actionTypes";
-
-import {
-  ADMIN_LOGOUT,
-  ADMIN_LOGIN_SUCCESS
-} from "../AdminAuthReducer/actionTypes";
-import { loadData, saveData } from "../../Utilities/LocalStorageAdmin";
+import { ADMIN_LOGOUT } from "../AdminAuthReducer/actionTypes";
+import { saveData } from "../../Utilities/LocalStorageAdmin";
 
 export const userRegister = (userData) => (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST });
@@ -21,11 +17,10 @@ export const userRegister = (userData) => (dispatch) => {
   return axios
     .post(`${process.env.REACT_APP_BASE_URL}/signup`, userData)
     .then((res) => {
-      console.log(res.data);
       saveData("regUserCart", { userId: res.data._id, cart: [] });
       return dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data });
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch({ type: USER_REGISTER_FAILURE });
     });
 };
@@ -37,14 +32,10 @@ export const userLogin = (crid) => (dispatch) => {
     .post(`${process.env.REACT_APP_BASE_URL}/login`, crid)
     .then((res) => {
       const payload = { user: res?.data?.user, token: res?.data?.token };
-      console.log(payload);
-      if (res?.data?.user?.cosign === "user")
-        return dispatch({ type: USER_LOGIN_SUCCESS, payload });
-      else if (res?.data?.user?.cosign === "Admin")
-        return dispatch({ type: ADMIN_LOGIN_SUCCESS, payload });
+      return dispatch({ type: USER_LOGIN_SUCCESS, payload });
     })
     .catch((error) => {
-      dispatch({ type: USER_LOGIN_FAILURE });
+      return dispatch({ type: USER_LOGIN_FAILURE });
     });
 };
 
