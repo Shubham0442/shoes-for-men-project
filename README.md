@@ -73,12 +73,15 @@ The Shoes-for-men is an e-commerce website consisting different kinds of shoes a
 - React-router-dom
 - Axios
 - chakra-Ui 
+- NodeJS
+- MongoDB
+- ExpressJS
 
 ### Server
-- json-server 
+- https://shoesformenserver.onrender.com
 
 ## Deployment Link : 
-https://shoesformens.netlify.app/
+https://shoesformen.netlify.app/
 
 
 ## Author : 
