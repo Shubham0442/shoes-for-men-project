@@ -15,8 +15,6 @@ const UsersData = () => {
     if (usersData?.length === 0) dispatch(getUserData(token));
   }, [usersData?.length]);
 
-  console.log("userData", usersData);
-
   return (
     <Table
       variant={"simple"}
@@ -50,7 +48,7 @@ const UsersData = () => {
                   <Td>{elem.email}</Td>
                   <Td>{elem.mobile}</Td>
                   <Td>
-                    <Link to={`/adm/${elem.id}`}>See More Details</Link>
+                    <Link to={`/adm/${elem._id}`}>See More Details</Link>
                   </Td>
                 </Tr>
               )

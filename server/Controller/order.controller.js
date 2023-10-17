@@ -21,14 +21,29 @@ orderController.post("/create", authentication, async (req, res) => {
   res.status(201).send({ msg: "New order created" });
 });
 
-orderController.patch(
-  "/update/id",
+orderController.get(
+  "/details/:id",
   authentication,
   autorization(["Admin"]),
   async (req, res) => {
     const { id } = req.params;
-    const updatedOrder = await Order.findByIdAndUpdate({ _id: id });
-    res.status(201).send({ msg: "Order details update" });
+    const orders = await Order.find({ userId: id });
+    res.status(201).send({ orders });
+  }
+);
+
+orderController.put(
+  "/update/:id",
+  authentication,
+  autorization(["Admin"]),
+  async (req, res) => {
+    const { id } = req.params;
+    const { orderStatus } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      { _id: id },
+      { $set: { orderStatus } }
+    );
+    res.status(201).send({ msg: "Order details updated" });
   }
 );
 

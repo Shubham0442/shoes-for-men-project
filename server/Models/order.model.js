@@ -9,7 +9,8 @@ const orderSchema = mongoose.Schema({
   Date_order_placed: { type: String, require: true },
   Date_order_delivered: { type: String, require: true },
   orderDetails: { type: Array, require: true },
-  userId: { type: String, require: true }
+  userId: { type: String, require: true },
+  delivery_address: { type: Object, require: true }
 });
 
 const Order = mongoose.model("order", orderSchema);

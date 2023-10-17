@@ -20,7 +20,7 @@ app.use("/shoes", shoeController);
 app.use("/cart", cartController);
 app.use("/address", addressController);
 app.use("/orders", orderController);
-app.use("/users", userController);
+app.use("/userdata", userController);
 
 const PORT = process.env.PORT || 5050;
 

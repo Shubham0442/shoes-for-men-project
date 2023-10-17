@@ -10,7 +10,7 @@ export const getUserData = (token) => (dispatch) => {
   dispatch({ type: GET_USERS_DATA_REQUEST });
 
   return axios({
-    url: `${process.env.REACT_APP_BASE_URL}/users`,
+    url: `${process.env.REACT_APP_BASE_URL}/userdata`,
     method: "get",
     headers: { Authorization: `Bearer ${token}` }
   })

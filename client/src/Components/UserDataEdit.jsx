@@ -1,64 +1,52 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Image,
-  Button,
-  Select,
-  useToast
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Select, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getUserData,
-  updateUserOrderStatus
-} from "../Redux/userDataReducer/userDataAction";
+import { getUserData } from "../Redux/userDataReducer/userDataAction";
 import { useState } from "react";
-import {
-  addOrderDetails,
-  getAllOrderDetails,
-  removeFromAllOrders,
-  updateOrderStatusByAdmin
-} from "../Redux/orderDetailsReducer/action";
+import { getAllOrder, updateOrderStatusByAdmin } from "../Redux/orderDetailsReducer/action";
 
 const UserDataEdit = () => {
   const userData = useSelector((state) => state.userDataReducer.userData);
   const [currentUser, setCurrentUser] = useState({});
+  const token = useSelector((state) => state.userAuthReducer.token);
   const [allOrders, setAllOrders] = useState([]);
   const dispatch = useDispatch();
   const { id } = useParams();
   const statusUpdatedToast = useToast();
 
-  const handleChangeOrderStatus = (orderId, val) => {
-    console.log(orderId, val);
-    let updateOrderStatus = allOrders.map((elem) =>
-      elem.id === orderId
-        ? {
-            ...elem,
-            orderStatus: val
-          }
-        : elem
-    );
-    setAllOrders(updateOrderStatus);
+  console.log("user data", userData);
 
-    console.log("from user data update", updateOrderStatus);
-    // updateOrderStatus &&
-    //   dispatch(assignOrderDetailToUser(id, updateOrderStatus)).then((res) => {
-    //     if (res.type === "ASSIGN_ORDER_DETAILS_TO_USER") {
-    //       dispatch(getUserData());
-    //       statusUpdatedToast({
-    //         status: "info",
-    //         position: "top",
-    //         title: "Order status updated",
-    //         isClosable: true,
-    //         duration: 2500
-    //       });
-    //     }
-    //   });
+  const handleSetCurrentUserDetails = (allUsers) => {
+    const user = allUsers?.find((el) => el._id === id);
+    setCurrentUser(user);
+    dispatch(getAllOrder(id, token)).then((res) => {
+      if (res.type === "GET_USER_ALL_ORDERS") setAllOrders(res.payload);
+    });
   };
+
+  const handleChangeOrderStatus = (orderId, val) => {
+    dispatch(updateOrderStatusByAdmin(orderId, val, token)).then((res) => {
+      if (res.type === "UPDATE_ORDER_STATUS_BY_ADMIN")
+        statusUpdatedToast({
+          status: "info",
+          position: "top",
+          title: "Order status updated",
+          isClosable: true,
+          duration: 2500
+        });
+    });
+  };
+
+  useEffect(() => {
+    if (userData?.length === 0) {
+      dispatch(getUserData(token)).then((res) => {
+        if (res.type === "GET_USERS_DATA_SUCCESS")
+          handleSetCurrentUserDetails(res.payload);
+      });
+    } else handleSetCurrentUserDetails(userData);
+  }, []);
 
   return (
     <Box w={"100%"} bg={"#f1f3f6 "} m={"auto"}>
@@ -114,7 +102,7 @@ const UserDataEdit = () => {
           bg={"white"}
           p={"10px"}
         >
-          {currentUser?.ordersHistory?.map((elem) => (
+          {allOrders?.map((elem) => (
             <Box
               m={"auto"}
               alignItems={"center"}
@@ -140,7 +128,7 @@ const UserDataEdit = () => {
                   pb={"20px"}
                   fontWeight={"550"}
                 >
-                  #{elem.order_No}
+                  #{elem._id}
                 </Text>
               </Flex>
               <Flex justifyContent={"space-evenly"}>
@@ -199,7 +187,7 @@ const UserDataEdit = () => {
                   <Select
                     size={"sm"}
                     onChange={(e) =>
-                      handleChangeOrderStatus(elem.id, e.target.value)
+                      handleChangeOrderStatus(elem._id, e.target.value)
                     }
                     w={"200px"}
                     textAlign={"left"}

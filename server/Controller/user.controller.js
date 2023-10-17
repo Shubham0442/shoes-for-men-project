@@ -10,10 +10,9 @@ userController.get(
   authentication,
   autorization(["Admin"]),
   async (req, res) => {
-    const { userId } = req.body;
     const users = await User.find({ cosign: "user" });
     console.log(users);
-    res.send(201).send({ users: users });
+    res.status(201).send({ users: users });
   }
 );
 
