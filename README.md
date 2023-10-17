@@ -81,7 +81,7 @@ The Shoes-for-men is an e-commerce website consisting different kinds of shoes a
 - https://shoesformenserver.onrender.com
 
 ## Deployment Link : 
-https://shoesformen.netlify.app/
+- https://shoesformen.netlify.app/
 
 
 ## Author : 
