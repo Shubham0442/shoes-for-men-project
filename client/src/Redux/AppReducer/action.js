@@ -33,7 +33,10 @@ export const addProduct = (productInfo, token) => (dispatch) => {
   return axios({
     url: `${process.env.REACT_APP_BASE_URL}/shoes/create`,
     method: "post",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    },
     data: productInfo
   })
     .then((res) => {
@@ -50,7 +53,10 @@ export const deleteProduct = (id, token) => (dispatch) => {
   return axios({
     method: "delete",
     url: `${process.env.REACT_APP_BASE_URL}/shoes/remove/${id}`,
-    headers: { Authorization: `Bearer ${token}` }
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    }
   })
     .then(() => {
       return dispatch({ type: DELETE_PRODUCT_SUCCESS });

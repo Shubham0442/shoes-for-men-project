@@ -17,7 +17,8 @@ export const addOrderDetails = (orderDetails, token) => (dispatch) => {
     method: "post",
     data: orderDetails,
     headers: {
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
     }
   })
     .then((res) => {
@@ -35,11 +36,11 @@ export const getAllOrderDetails = (token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/orders`,
     method: "get",
     headers: {
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
     }
   })
     .then((res) => {
-      console.log(res.data);
       return dispatch({
         type: GET_ORDER_DETAILS_SUCCESS,
         payload: res.data.orders
@@ -54,7 +55,8 @@ export const getAllOrder = (id, token) => (dispatch) => {
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/orders/details/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
       }
     })
     .then((res) => {
@@ -74,7 +76,10 @@ export const updateOrderStatusByAdmin =
       method: "put",
       url: `${process.env.REACT_APP_BASE_URL}/orders/update/${id}`,
       data: { orderStatus: newStatus },
-      headers: { Authorization: `Bearer ${token}` }
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      }
     })
       .then((res) => {
         return dispatch({
@@ -83,6 +88,6 @@ export const updateOrderStatusByAdmin =
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };

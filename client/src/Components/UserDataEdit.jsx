@@ -16,8 +16,6 @@ const UserDataEdit = () => {
   const { id } = useParams();
   const statusUpdatedToast = useToast();
 
-  console.log("user data", userData);
-
   const handleSetCurrentUserDetails = (allUsers) => {
     const user = allUsers?.find((el) => el._id === id);
     setCurrentUser(user);

@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 const Home = () => { 
 
   const adminAuth = useSelector((state)=>state.adminAuthReducer)
-  //console.log(adminAuth)
 
   const banners = [
     "https://cdn.shopify.com/s/files/1/0567/9503/7849/files/website-banner-desktop-landscape.jpg?v=1635135138",

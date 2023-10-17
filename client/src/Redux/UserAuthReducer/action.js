@@ -14,8 +14,14 @@ import { saveData } from "../../Utilities/LocalStorageAdmin";
 export const userRegister = (userData) => (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST });
 
-  return axios
-    .post(`${process.env.REACT_APP_BASE_URL}/signup`, userData)
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/signup`,
+    method: "post",
+    data: userData,
+    headers: {
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    }
+  })
     .then((res) => {
       saveData("regUserCart", { userId: res.data._id, cart: [] });
       return dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data });
@@ -28,8 +34,14 @@ export const userRegister = (userData) => (dispatch) => {
 export const userLogin = (crid) => (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST });
 
-  return axios
-    .post(`${process.env.REACT_APP_BASE_URL}/login`, crid)
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/login`,
+    method: "post",
+    data: crid,
+    headers: {
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    }
+  })
     .then((res) => {
       const payload = { user: res?.data?.user, token: res?.data?.token };
       return dispatch({ type: USER_LOGIN_SUCCESS, payload });

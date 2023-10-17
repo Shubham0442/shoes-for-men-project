@@ -70,7 +70,6 @@ const AddProduct = () => {
         Closure: Closure
       }
     };
-    console.log("Add Product", payload);
     dispatch(addProduct(payload, token)).then((res) => {
       if (res.type === "ADD_PRODUCT_SUCCESS") {
         addTost({

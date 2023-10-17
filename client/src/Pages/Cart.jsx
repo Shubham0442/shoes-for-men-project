@@ -67,7 +67,6 @@ const Cart = () => {
       });
     }
   };
-  //console.log(userData.cart)
 
   return (
     <Box w={"100%"} bg={"#f1f3f6"} m={"auto"}>

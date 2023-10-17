@@ -52,15 +52,14 @@ const Register = () => {
         cosign: "user"
       })
     ).then((res) => {
-      if (res.data.msg === "Sigup Successful") {
+      if (res?.type === "USER_REGISTER_SUCCESS")
         regToast({
           title: "Registration Successful!",
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "top-left"
+          position: "top-right"
         });
-      }
     });
     onClose();
   };

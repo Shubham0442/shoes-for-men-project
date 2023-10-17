@@ -3,13 +3,9 @@ import {
   ADD_TO_CART_FAILURE,
   ADD_TO_CART_REQUEST,
   ADD_TO_CART_SUCCESS,
-  ASSIGN_CART_USER,
-  ASSIGN_USER_CART_TO_TEMPCART,
   GET_CART_DATA,
   MANAGE_QUANTITY,
   REMOVE_PRODUCT_FROM_CART,
-  SETTING_USER_DELIVERY_ADDRESS,
-  GET_USER_ORDER_DETAILS,
   SET_EMPTY_CART
 } from "./actionTyes";
 
@@ -20,7 +16,8 @@ export const addToCart = (cartItem, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/add`,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
     },
     data: cartItem
   })
@@ -38,14 +35,15 @@ export const getCart = (token) => (dispatch) => {
       .get(`${process.env.REACT_APP_BASE_URL}/cart/get`, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
         }
       })
       .then((res) => {
         return dispatch({ type: GET_CART_DATA, payload: res.data.cart });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   else dispatch({ type: GET_CART_DATA, payload: [] });
 };
@@ -55,14 +53,15 @@ export const removeFromCart = (id, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/remove/${id}`,
     method: "delete",
     headers: {
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
     }
   })
     .then((res) => {
       return dispatch({ type: REMOVE_PRODUCT_FROM_CART });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -71,7 +70,8 @@ export const manageQuantity = (id, payload, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/update/${id}`,
     method: "patch",
     headers: {
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
     },
     data: { Qty: payload }
   })
@@ -79,7 +79,7 @@ export const manageQuantity = (id, payload, token) => (dispatch) => {
       return dispatch({ type: MANAGE_QUANTITY });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -95,6 +95,6 @@ export const emptyCart = (token) => (dispatch) => {
       return dispatch({ type: SET_EMPTY_CART });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };

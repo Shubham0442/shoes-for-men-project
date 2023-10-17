@@ -54,7 +54,6 @@ shoeController.post(
     const allShoes = req?.body?.data?.map((el) => {
       return { ...el, userId };
     });
-    console.log(allShoes);
 
     const newShoe = Shoe.insertMany(allShoes);
     await newShoe;

@@ -98,8 +98,6 @@ const Admin = () => {
       if (Number(shoeDatas[i]?.rating) >= 4) Above4++;
     }
 
-    console.log(shoeDatas);
-
     casualPercent = Math.floor((casual / shoeDatas?.length) * 100);
     sportsPrecent = Math.floor((sports / shoeDatas?.length) * 100);
     formalPercent = Math.floor((formal / shoeDatas?.length) * 100);

@@ -38,8 +38,6 @@ const ProductDataEdit = ({ id, shoeDatas }) => {
   const [img3, setImg3] = useState("");
   const [img4, setImg4] = useState("");
 
-  console.log("product id", id);
-
   useEffect(() => {
     const newProduct = shoeDatas.find((elem) => elem._id === id);
 

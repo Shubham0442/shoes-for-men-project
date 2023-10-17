@@ -18,8 +18,6 @@ const MyAccount = () => {
     if (addresses?.length === 0) dispatch(getDeliveryAddress(token));
   }, []);
 
-  console.log(addresses);
-
   return (
     <Box w={"100%"} bg={"#f1f3f6 "} m={"auto"} pt={"20px"}>
       <Box

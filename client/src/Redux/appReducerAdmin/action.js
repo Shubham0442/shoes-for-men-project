@@ -26,13 +26,16 @@ export const updateProductData = (id, updatedPayload, token) => (dispatch) => {
   return axios({
     method: "patch",
     url: `${process.env.REACT_APP_BASE_URL}/shoes/update/${id}`,
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    },
     data: updatedPayload
   })
     .then((res) => {
       return dispatch({ type: UPDATE_PRODUCT_DATA, payload: res.data });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };

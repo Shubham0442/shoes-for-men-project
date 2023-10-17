@@ -6,7 +6,6 @@ const AdminPrivateRoute = ({ children }) => {
   const isAdmin = useSelector(
     (state) => state.userAuthReducer?.userData?.cosign
   );
-  console.log(isAdmin);
 
   if (isAdmin !== "Admin") return <Navigate to={"/accessdenied"} />;
   else return children;

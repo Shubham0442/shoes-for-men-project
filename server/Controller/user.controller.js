@@ -11,7 +11,6 @@ userController.get(
   autorization(["Admin"]),
   async (req, res) => {
     const users = await User.find({ cosign: "user" });
-    console.log(users);
     res.status(201).send({ users: users });
   }
 );

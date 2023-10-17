@@ -2,8 +2,7 @@ import axios from "axios";
 import {
   GET_USERS_DATA_FAILURE,
   GET_USERS_DATA_REQUEST,
-  GET_USERS_DATA_SUCCESS,
-  UPDATE_USER_ORDER_STATUE
+  GET_USERS_DATA_SUCCESS
 } from "./userDataActionTypes";
 
 export const getUserData = (token) => (dispatch) => {
@@ -12,7 +11,10 @@ export const getUserData = (token) => (dispatch) => {
   return axios({
     url: `${process.env.REACT_APP_BASE_URL}/userdata`,
     method: "get",
-    headers: { Authorization: `Bearer ${token}` }
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+    }
   })
     .then((res) => {
       return dispatch({
@@ -22,18 +24,5 @@ export const getUserData = (token) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: GET_USERS_DATA_FAILURE });
-    });
-};
-
-export const updateUserOrderStatus = (id, newStatus) => (dispatch) => {
-  return axios
-    .patch(`${process.env.REACT_APP_BASE_URL}/users/${id}`, {
-      order_status: newStatus
-    })
-    .then((res) => {
-      return dispatch({ type: UPDATE_USER_ORDER_STATUE });
-    })
-    .catch((error) => {
-      console.log(error);
     });
 };

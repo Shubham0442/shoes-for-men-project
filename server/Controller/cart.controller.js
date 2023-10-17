@@ -49,11 +49,8 @@ cartController.delete("/remove/:id", authentication, async (req, res) => {
 cartController.delete("/empty", authentication, async (req, res) => {
   const { userId } = req.body;
 
-  console.log("userId", userId);
-
   const removedItems = await Cart.deleteMany({ userIdCart: userId });
 
-  console.log("removedItems", removedItems);
   res.status(201).send({ msg: "cart items deleted" });
 });
 
