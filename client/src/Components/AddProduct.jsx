@@ -55,6 +55,7 @@ const AddProduct = () => {
       name: name,
       cover: cover,
       Rate: Rate,
+      Qty: 1,
       brand: brand,
       rating: rating,
       category: category,
@@ -80,7 +81,7 @@ const AddProduct = () => {
         });
 
         dispatch(getShoesData());
-        dispatch(getAppDataforAdmin());
+        dispatch(getAppDataforAdmin(token));
       }
     });
     onClose();

@@ -16,8 +16,7 @@ export const addToCart = (cartItem, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/add`,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      "Authorization": `Bearer ${token}`
     },
     data: cartItem
   })
@@ -35,8 +34,7 @@ export const getCart = (token) => (dispatch) => {
       .get(`${process.env.REACT_APP_BASE_URL}/cart/get`, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+          "Authorization": `Bearer ${token}`
         }
       })
       .then((res) => {
@@ -53,8 +51,7 @@ export const removeFromCart = (id, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/remove/${id}`,
     method: "delete",
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     }
   })
     .then((res) => {
@@ -70,8 +67,7 @@ export const manageQuantity = (id, payload, token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/cart/update/${id}`,
     method: "patch",
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     },
     data: { Qty: payload }
   })

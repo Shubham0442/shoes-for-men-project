@@ -6,7 +6,7 @@ import {
   SlideFade,
   useDisclosure
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaOpencart } from "react-icons/fa";
@@ -16,7 +16,6 @@ import Login from "../Pages/Login";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPopover from "./AccountPopover";
 import { getCart } from "../Redux/CartRedux/action";
-import { useEffect } from "react";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.userAuthReducer);
@@ -24,15 +23,7 @@ const Navbar = () => {
   const isAdmin = useSelector((state) => state.adminAuthReducer);
   const cart = useSelector((state) => state.cartReducer.tempCart);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (cart.length === 0 && token) dispatch(getCart(token));
-  }, [cart.length, token]);
-
-  const cartLength = cart.reduce((acc, elem) => acc + elem.Qty, 0);
-
   const { isOpen, onToggle } = useDisclosure();
-
   const activeStyle = {
     fontWeight: "650",
     fontSize: { base: "18px", md: "24px", lg: "40px" },
@@ -43,6 +34,15 @@ const Navbar = () => {
     fontWeight: "450",
     color: "white"
   };
+
+  useEffect(() => {
+    dispatch(getCart(token));
+  }, [cart.length]);
+
+  const cartLength = useMemo(() => {
+    const length = cart?.reduce((acc, item) => acc + item.Qty, 0);
+    return length;
+  }, [cart]);
 
   return (
     <Box w="100%" h="120px" margin="auto">
@@ -176,7 +176,7 @@ const Navbar = () => {
                     bottom={"10px"}
                     left={"15px"}
                   >
-                    {cartLength}
+                    {cartLength || cart.length || 0}
                   </Box>
                 ) : (
                   <></>
@@ -222,7 +222,7 @@ const Navbar = () => {
                       left={"10px"}
                       textAlign={"center"}
                     >
-                      {cartLength}
+                      {cartLength || cart.length || 0}
                     </Box>
                   ) : (
                     <></>
@@ -245,7 +245,7 @@ const Navbar = () => {
                 >
                   <FaOpencart color={"black"} />
 
-                  {authUser.isAuthUser ? (
+                  {authUser?.isAuthUser ? (
                     <Box
                       color={"black"}
                       borderRadius={"50%"}
@@ -258,14 +258,13 @@ const Navbar = () => {
                       bottom={{ base: "10px" }}
                       left={{ base: "10px" }}
                     >
-                      {cartLength}
+                      {cartLength || cart.length || 0}
                     </Box>
                   ) : (
                     <></>
                   )}
                 </Flex>
               </NavLink>
-
               <Box
                 display={{ base: "block", sm: "block", md: "none", lg: "none" }}
                 fontSize={{ base: "12px", sm: "14px" }}
@@ -339,7 +338,6 @@ const Navbar = () => {
                 Cart
               </Box>
             </Link>
-            {/* <Box  bg={"#ffcc33"} h="30px" fontWeight= "650"></Box> */}
           </Box>
         </SlideFade>
       }

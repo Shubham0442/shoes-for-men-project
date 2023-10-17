@@ -60,7 +60,7 @@ const AddDeliveryAddressAccount = () => {
 
       dispatch(addDeliveryAddress(addressPayload, token)).then((res) => {
         if (res.type === "ADD_DELIVERY_ADDRESS_SUCCESS")
-          dispatch(getDeliveryAddress());
+          dispatch(getDeliveryAddress(token));
       });
     }
     onClose();

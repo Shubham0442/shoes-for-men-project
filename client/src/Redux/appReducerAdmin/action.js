@@ -27,8 +27,7 @@ export const updateProductData = (id, updatedPayload, token) => (dispatch) => {
     method: "patch",
     url: `${process.env.REACT_APP_BASE_URL}/shoes/update/${id}`,
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     },
     data: updatedPayload
   })

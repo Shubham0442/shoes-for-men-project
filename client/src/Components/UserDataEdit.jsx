@@ -100,7 +100,7 @@ const UserDataEdit = () => {
           bg={"white"}
           p={"10px"}
         >
-          {allOrders?.map((elem) => (
+          {allOrders?.map((elem, i) => (
             <Box
               m={"auto"}
               alignItems={"center"}
@@ -108,7 +108,7 @@ const UserDataEdit = () => {
               borderRadius={"10px"}
               mb={"10px"}
               p={"15px"}
-              key={elem.id}
+              key={i}
             >
               <Flex gap={"8px"}>
                 <Text

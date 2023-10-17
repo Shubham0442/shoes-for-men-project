@@ -17,8 +17,7 @@ export const addOrderDetails = (orderDetails, token) => (dispatch) => {
     method: "post",
     data: orderDetails,
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     }
   })
     .then((res) => {
@@ -36,8 +35,7 @@ export const getAllOrderDetails = (token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/orders`,
     method: "get",
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     }
   })
     .then((res) => {
@@ -55,8 +53,7 @@ export const getAllOrder = (id, token) => (dispatch) => {
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/orders/details/${id}`, {
       headers: {
-        "Authorization": `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+        Authorization: `Bearer ${token}`
       }
     })
     .then((res) => {
@@ -77,8 +74,7 @@ export const updateOrderStatusByAdmin =
       url: `${process.env.REACT_APP_BASE_URL}/orders/update/${id}`,
       data: { orderStatus: newStatus },
       headers: {
-        "Authorization": `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+        Authorization: `Bearer ${token}`
       }
     })
       .then((res) => {

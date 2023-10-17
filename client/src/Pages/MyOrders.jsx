@@ -30,11 +30,11 @@ const MyOrders = () => {
         fontWeight={"550"}
         bg={"white"}
       >
-        {orderDetails?.reverse().map((elem) => (
+        {orderDetails?.reverse().map((elem, i) => (
           <Box
             border={"1px solid #eae8e8"}
             borderRadius={"8px"}
-            key={elem.id}
+            key={i}
             p={"15px"}
             mb={"10px"}
           >
@@ -160,8 +160,8 @@ const MyOrders = () => {
               direction={{ base: "column", sm: "column", md: "row", lg: "row" }}
             >
               <Box>
-                {elem?.orderDetails?.map((item) => (
-                  <Flex key={item.id} gap={"20px"} mb={"8px"}>
+                {elem?.orderDetails?.map((item, i) => (
+                  <Flex key={i} gap={"20px"} mb={"8px"}>
                     <Box w={"80px"} h={"80px"}>
                       <Image src={item.cover} />
                     </Box>

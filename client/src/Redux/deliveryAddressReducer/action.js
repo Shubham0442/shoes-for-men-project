@@ -14,8 +14,7 @@ export const addDeliveryAddress = (deliveryAddress, token) => (dispatch) => {
     method: "post",
     data: deliveryAddress,
     headers: {
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/",
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
   })
     .then((res) => {
@@ -34,8 +33,7 @@ export const getDeliveryAddress = (token) => (dispatch) => {
     url: `${process.env.REACT_APP_BASE_URL}/address`,
     method: "get",
     headers: {
-      "Authorization": `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://shoesformens.vercel.app/"
+      Authorization: `Bearer ${token}`
     }
   })
     .then((res) => {

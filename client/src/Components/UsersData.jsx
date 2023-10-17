@@ -36,9 +36,9 @@ const UsersData = () => {
       <Tbody>
         {usersData?.length !== 0 &&
           usersData?.map(
-            (elem) =>
+            (elem, i) =>
               elem.cosign === "user" && (
-                <Tr key={elem.id}>
+                <Tr key={i}>
                   <Td>
                     <FaUserCircle size={"30px"} />
                   </Td>

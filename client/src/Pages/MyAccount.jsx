@@ -35,12 +35,12 @@ const MyAccount = () => {
         w={{ base: "85%", sm: "70%", md: "65%", lg: "30%" }}
         m={"auto"}
         bg={"white"}
-        pl={"15px"}
+        pl={"20px"}
         fontSize={"14px"}
         fontWeight={"550"}
         pt={"20px"}
         pb={"20px"}
-        pr={"15px"}
+        pr={"20px"}
         mb={"10px"}
       >
         <Box>
@@ -103,7 +103,7 @@ const MyAccount = () => {
         pl={"15px"}
         mb={"10px"}
       >
-        <Text fontSize={"15px"} textAlign={"left"} fontWeight={"550"}>
+        <Text fontSize={"15px"} textAlign={"left"} fontWeight={"550"} pl="5px">
           Delivery Address
         </Text>
       </Box>
@@ -120,7 +120,13 @@ const MyAccount = () => {
           pr={"15px"}
         >
           {addresses.map((el) => (
-            <Box >
+            <Box
+              key={el._id}
+              border={"1px solid #dcdcdb"}
+              mb="15px"
+              p="5px"
+              borderRadius="5px"
+            >
               <Box>
                 <Flex
                   alignItems={"center"}
