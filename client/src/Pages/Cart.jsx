@@ -37,11 +37,10 @@ const Cart = () => {
   };
 
   const handleQuantity = (id, Qty) => {
-    if (isUser === true) {
+    if (isUser === true)
       dispatch(manageQuantity(id, Qty, token)).then((res) => {
         if (res.type === "MANAGE_QUANTITY") dispatch(getCart(token));
       });
-    }
   };
 
   const handleRedirectToAllProducts = () => navigate("/mensshoe");
@@ -54,9 +53,8 @@ const Cart = () => {
   const cartLength = cart.reduce((acc, elem) => acc + elem.Qty, 0);
 
   const handleCheckOut = () => {
-    if (isUser === true) {
-      navigate("/checkout");
-    } else {
+    if (isUser === true) navigate("/checkout");
+    else
       showLoginToast({
         title: "Please Register/Login",
         status: "error",
@@ -65,7 +63,6 @@ const Cart = () => {
         position: "bottom",
         mb: "100px"
       });
-    }
   };
 
   return (

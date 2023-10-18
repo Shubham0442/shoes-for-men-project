@@ -28,7 +28,7 @@ const SingleProduct = () => {
   const [currentPic, setCurrentPic] = useState("");
 
   const handleAddToCart = () => {
-    if (isUser === true && token) {
+    if (isUser === true && token)
       dispatch(addToCart(currentShoe, token)).then((res) => {
         if (res.type === "ADD_TO_CART_SUCCESS") {
           dispatch(getCart(token));
@@ -41,7 +41,7 @@ const SingleProduct = () => {
           });
         }
       });
-    } else
+    else
       forceLoginToast({
         title: "Please Register / Login",
         status: "error",

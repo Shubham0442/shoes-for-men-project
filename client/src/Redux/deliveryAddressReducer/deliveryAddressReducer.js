@@ -22,7 +22,6 @@ export const deliveryAddressReducer = (
         isLoading: true
       };
     }
-
     case ADD_DELIVERY_ADDRESS_SUCCESS: {
       return {
         ...state,
@@ -30,7 +29,6 @@ export const deliveryAddressReducer = (
         address: [...state.address, payload]
       };
     }
-
     case ADD_DELIVERY_ADDRESS_FAILURE: {
       return {
         ...state,
@@ -38,7 +36,6 @@ export const deliveryAddressReducer = (
         isError: true
       };
     }
-
     case GET_DELIVERY_ADDRESS: {
       return {
         ...state,

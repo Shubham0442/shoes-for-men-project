@@ -10,26 +10,18 @@ import {
   FormControl
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCart,
-  removeFromCart,
-  assignCartToUser,
-  emptyCart
-} from "../Redux/CartRedux/action";
+import { getCart, emptyCart } from "../Redux/CartRedux/action";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getDeliveryAddress } from "../Redux/deliveryAddressReducer/action";
 import AddDeliveryAddressAccount from "../Components/AddDeliveryAddressAccount";
-import { v4 as uuid } from "uuid";
 import {
   addOrderDetails,
-  assignOrderDetailToUser,
   getAllOrderDetails
 } from "../Redux/orderDetailsReducer/action";
 
 const Checkout = () => {
-  const userData = useSelector((state) => state.userAuthReducer.userData);
   const token = useSelector((state) => state.userAuthReducer.token);
   const cart = useSelector((state) => state.cartReducer.tempCart);
   const deliveryAddress = useSelector(
@@ -163,9 +155,7 @@ const Checkout = () => {
               </Box>
             </Box>
           )}
-
           <hr />
-
           <Box bg={"white"} pb={"10px"} mb={"10px"} pt={"10px"}>
             <AddDeliveryAddressAccount />
           </Box>
@@ -202,7 +192,6 @@ const Checkout = () => {
           ) : (
             <></>
           )}
-
           <Box bg={"white"}>
             <Text fontSize={"18px"} fontWeight={"550"}>
               Add Payment Details

@@ -29,12 +29,11 @@ export const getShoesData = (q) => (dispatch) => {
 
 export const addProduct = (productInfo, token) => (dispatch) => {
   dispatch({ type: ADD_PRODUCT_REQUEST });
-console.log(productInfo);
   return axios({
     url: `${process.env.REACT_APP_BASE_URL}/shoes/create`,
     method: "post",
     headers: {
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     },
     data: productInfo
   })
@@ -53,7 +52,7 @@ export const deleteProduct = (id, token) => (dispatch) => {
     method: "delete",
     url: `${process.env.REACT_APP_BASE_URL}/shoes/remove/${id}`,
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`
     }
   })
     .then(() => {

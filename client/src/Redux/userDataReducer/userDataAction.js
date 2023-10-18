@@ -22,7 +22,7 @@ export const getUserData = (token) => (dispatch) => {
         payload: res.data.users
       });
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch({ type: GET_USERS_DATA_FAILURE });
     });
 };

@@ -19,7 +19,6 @@ export const cartReducer = (state = initState, { type, payload }) => {
         isLoading: true
       };
     }
-
     case ADD_TO_CART_SUCCESS: {
       return {
         ...state,
@@ -27,7 +26,6 @@ export const cartReducer = (state = initState, { type, payload }) => {
         tempCart: [...state.tempCart, payload]
       };
     }
-
     case ADD_TO_CART_FAILURE: {
       return {
         ...state,
@@ -35,7 +33,6 @@ export const cartReducer = (state = initState, { type, payload }) => {
         isError: true
       };
     }
-
     case GET_CART_DATA: {
       return {
         ...state,
@@ -44,7 +41,6 @@ export const cartReducer = (state = initState, { type, payload }) => {
         tempCart: payload
       };
     }
-
     default:
       return state;
   }

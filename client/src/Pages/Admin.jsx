@@ -54,15 +54,10 @@ const Admin = () => {
     let bootPercent = 0;
 
     for (let i = 0; i < shoeDatas?.length; i++) {
-      if (shoeDatas[i]?.category === "Casual") {
-        casual++;
-      } else if (shoeDatas[i]?.category === "Sports") {
-        sports++;
-      } else if (shoeDatas[i]?.category === "Formal") {
-        formal++;
-      } else if (shoeDatas[i]?.category === "Boot") {
-        boot++;
-      }
+      if (shoeDatas[i]?.category === "Casual") casual++;
+      else if (shoeDatas[i]?.category === "Sports") sports++;
+      else if (shoeDatas[i]?.category === "Formal") formal++;
+      else if (shoeDatas[i]?.category === "Boot") boot++;
     }
 
     let Adidas = 0;
@@ -76,21 +71,13 @@ const Admin = () => {
     let leeCuper = 0;
 
     for (let i = 0; i < shoeDatas?.length; i++) {
-      if (shoeDatas[i]?.brand === "REEBOK") {
-        Reebok++;
-      } else if (shoeDatas[i]?.brand === "PUMA") {
-        Puma++;
-      } else if (shoeDatas[i]?.brand === "ADIDAS") {
-        Adidas++;
-      } else if (shoeDatas[i]?.brand === "Red Chief") {
-        RedChief++;
-      } else if (shoeDatas[i]?.brand === "NIKE") {
-        nike++;
-      } else if (shoeDatas[i]?.brand === "WOODLAND") {
-        woodland++;
-      } else if (shoeDatas[i]?.brand === "LEE COOPER") {
-        leeCuper++;
-      }
+      if (shoeDatas[i]?.brand === "REEBOK") Reebok++;
+      else if (shoeDatas[i]?.brand === "PUMA") Puma++;
+      else if (shoeDatas[i]?.brand === "ADIDAS") Adidas++;
+      else if (shoeDatas[i]?.brand === "Red Chief") RedChief++;
+      else if (shoeDatas[i]?.brand === "NIKE") nike++;
+      else if (shoeDatas[i]?.brand === "WOODLAND") woodland++;
+      else if (shoeDatas[i]?.brand === "LEE COOPER") leeCuper++;
     }
 
     for (let i = 0; i < shoeDatas?.length; i++) {

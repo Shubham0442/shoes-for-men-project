@@ -21,7 +21,6 @@ export const orderDetailsReducer = (state = initState, { type, payload }) => {
         isLoading: true
       };
     }
-
     case ADD_ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
@@ -29,21 +28,18 @@ export const orderDetailsReducer = (state = initState, { type, payload }) => {
         state: [...state.orderDetails, payload]
       };
     }
-
     case ADD_DELIVERY_ADDRESS_FAILURE: {
       return {
         isLoading: false,
         isError: true
       };
     }
-
     case GET_ORDER_DETAILS_REQUEST: {
       return {
         ...state,
         isLoading: true
       };
     }
-
     case GET_ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
@@ -51,7 +47,6 @@ export const orderDetailsReducer = (state = initState, { type, payload }) => {
         orderDetails: payload
       };
     }
-
     case GET_ORDER_DETAILS_FAILURE: {
       return {
         ...state,
@@ -59,7 +54,6 @@ export const orderDetailsReducer = (state = initState, { type, payload }) => {
         isError: true
       };
     }
-
     default:
       return state;
   }

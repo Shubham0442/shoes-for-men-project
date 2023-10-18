@@ -22,7 +22,6 @@ export const userAuthReducer = (state = initState, { type, payload }) => {
         isLoading: true
       };
     }
-
     case USER_LOGIN_SUCCESS: {
       const userInfo = payload;
       saveData("userAuth", {
@@ -38,7 +37,6 @@ export const userAuthReducer = (state = initState, { type, payload }) => {
         userData: userInfo?.user
       };
     }
-
     case USER_LOGIN_FAILURE: {
       return {
         ...state,
@@ -49,7 +47,6 @@ export const userAuthReducer = (state = initState, { type, payload }) => {
         isError: true
       };
     }
-
     case USER_LOGOUT: {
       saveData("userAuth", { isAuthUser: false, userData: null, token: null });
       return {
@@ -61,7 +58,6 @@ export const userAuthReducer = (state = initState, { type, payload }) => {
         isError: false
       };
     }
-
     default:
       return state;
   }

@@ -27,7 +27,6 @@ const Register = () => {
     mobile: "",
     password: ""
   });
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const regToast = useToast();
@@ -75,7 +74,6 @@ const Register = () => {
         >
           Register
         </Button>
-
         <Modal
           isOpen={isOpen}
           onClose={onClose}
@@ -110,7 +108,6 @@ const Register = () => {
                       />
                     </FormControl>
                   </Box>
-
                   <Box mb={"10px"}>
                     <FormControl isRequired>
                       <FormLabel>Last Name</FormLabel>
@@ -124,7 +121,6 @@ const Register = () => {
                     </FormControl>
                   </Box>
                 </Flex>
-
                 <Box mb={"10px"}>
                   <FormControl isRequired>
                     <FormLabel>Email</FormLabel>
@@ -137,7 +133,6 @@ const Register = () => {
                     />
                   </FormControl>
                 </Box>
-
                 <Box mb={"10px"}>
                   <FormControl isRequired>
                     <FormLabel>Mobile number</FormLabel>
@@ -150,7 +145,6 @@ const Register = () => {
                     />
                   </FormControl>
                 </Box>
-
                 <Box mb={"10px"}>
                   <FormControl isRequired>
                     <FormLabel>Password</FormLabel>
@@ -181,9 +175,6 @@ const Register = () => {
               </form>
               <Stack pt={6}>
                 <Text align={"center"}></Text>
-                {/* <Box display={{base:"none", sm:"none", md:"", lg:"block"}} w="20%" m={"auto"} textAlign={"center"}>
-                         <Login/>
-                    </Box> */}
                 <Box display={{ base: "block", sm: "block", md: "none" }}>
                   Already user?
                   <Link to={"/register"} color={"blue.400"}>
@@ -245,7 +236,6 @@ const Register = () => {
               onChange={handleRegistration}
             />
           </Box>
-
           <Box mb={"4px"}>
             <FormLabel>Mobile number</FormLabel>
             <Input
@@ -257,7 +247,6 @@ const Register = () => {
               onChange={handleRegistration}
             />
           </Box>
-
           <Box mb={"4px"}>
             <FormLabel>Password</FormLabel>
             <Input

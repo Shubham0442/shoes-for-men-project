@@ -23,7 +23,7 @@ export const addOrderDetails = (orderDetails, token) => (dispatch) => {
     .then((res) => {
       return dispatch({ type: ADD_ORDER_DETAILS_SUCCESS, payload: res.data });
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch({ type: ADD_ORDER_DETAILS_FAILURE });
     });
 };
@@ -44,7 +44,7 @@ export const getAllOrderDetails = (token) => (dispatch) => {
         payload: res.data.orders
       });
     })
-    .catch((error) => {
+    .catch(() => {
       dispatch({ type: GET_ORDER_DETAILS_FAILURE });
     });
 };
@@ -62,7 +62,7 @@ export const getAllOrder = (id, token) => (dispatch) => {
         payload: res.data.orders
       });
     })
-    .catch((error) => {
+    .catch(() => {
       return "GET_USER_ALL_ORDERS_FAILURES";
     });
 };

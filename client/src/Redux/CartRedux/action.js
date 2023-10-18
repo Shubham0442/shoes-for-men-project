@@ -54,7 +54,7 @@ export const removeFromCart = (id, token) => (dispatch) => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then((res) => {
+    .then(() => {
       return dispatch({ type: REMOVE_PRODUCT_FROM_CART });
     })
     .catch((error) => {
@@ -87,7 +87,7 @@ export const emptyCart = (token) => (dispatch) => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then((res) => {
+    .then(() => {
       return dispatch({ type: SET_EMPTY_CART });
     })
     .catch((error) => {

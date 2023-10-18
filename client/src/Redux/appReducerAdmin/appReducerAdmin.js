@@ -18,7 +18,6 @@ export const appReducerAdmin = (state = initialState, { type, payload }) => {
         isLoading: true
       };
     }
-
     case GET_APP_DATA_FOR_ADMIN_SUCCESS: {
       return {
         ...state,
@@ -26,7 +25,6 @@ export const appReducerAdmin = (state = initialState, { type, payload }) => {
         isLoading: false
       };
     }
-
     case GET_APP_DATA_FOR_ADMIN_FAILURE: {
       return {
         ...state,

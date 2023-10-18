@@ -20,10 +20,7 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "../Redux/UserAuthReducer/action";
 import Register from "./Register";
 import { getCart } from "../Redux/CartRedux/action";
-import {
-  addOrderDetails,
-  getAllOrderDetails
-} from "../Redux/orderDetailsReducer/action";
+import { getAllOrderDetails } from "../Redux/orderDetailsReducer/action";
 import { getDeliveryAddress } from "../Redux/deliveryAddressReducer/action";
 
 const Login = () => {
@@ -63,7 +60,7 @@ const Login = () => {
           position: "top"
         });
         navigate("/");
-      } else if (res.type === "USER_LOGIN_FAILURE") {
+      } else if (res.type === "USER_LOGIN_FAILURE")
         loginFailToast({
           title: "Invalid Cridentials.",
           description: "Please enter correct login cridentials.",
@@ -72,9 +69,7 @@ const Login = () => {
           isClosable: true,
           position: "top-right"
         });
-      }
     });
-
     onClose();
   };
 

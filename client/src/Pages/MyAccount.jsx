@@ -8,7 +8,7 @@ import { getDeliveryAddress } from "../Redux/deliveryAddressReducer/action";
 const MyAccount = () => {
   const userDetails = useSelector((state) => state.userAuthReducer.userData);
   const token = useSelector((state) => state.userAuthReducer.token);
-  const [userInfo, setUserInfo] = useState(userDetails);
+  const [userInfo] = useState(userDetails);
   const dispatch = useDispatch();
   const addresses = useSelector(
     (state) => state.deliveryAddressReducer.address
