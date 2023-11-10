@@ -11,6 +11,8 @@ const initState = {
 };
 
 export const appReducer = (state = initState, { type, payload }) => {
+  console.log(type);
+
   switch (type) {
     case GET_SHOES_DATA_LOADING: {
       return {

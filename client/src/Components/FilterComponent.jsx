@@ -29,9 +29,7 @@ const FilterComponent = ({ page }) => {
   let leecoper = 0;
 
   useEffect(() => {
-    if (appData.length === 0) {
-      dispatch(getShoesData());
-    }
+    if (appData.length === 0) dispatch(getShoesData());
   }, [appData.length]);
 
   for (let i = 0; i < appData.length; i++) {
@@ -55,36 +53,27 @@ const FilterComponent = ({ page }) => {
     let value = e.target.value;
     let newCategory = [...category];
 
-    if (category.includes(value)) {
+    if (category.includes(value))
       newCategory.splice(newCategory.indexOf(value), 1);
-    } else {
-      newCategory.push(value);
-    }
-
+    else newCategory.push(value);
     setCategory(newCategory);
   };
 
   const handleBrand = (e) => {
     let value = e.target.value;
-
     let newBrand = [...brand];
 
-    if (brand.includes(value)) {
-      newBrand.splice(newBrand.indexOf(value), 1);
-    } else {
-      newBrand.push(value);
-    }
-
+    if (brand.includes(value)) newBrand.splice(newBrand.indexOf(value), 1);
+    else newBrand.push(value);
     setBrand(newBrand);
   };
 
   const handleRating = (e) => {
     let value = e.target.value;
-
     let newRating = [...Rate];
+
     if (Rate.includes(value)) newRating.splice(newRating.indexOf(value), 1);
     else newRating.push(value);
-
     setRate(newRating);
   };
 
@@ -156,7 +145,6 @@ const FilterComponent = ({ page }) => {
           )}
         </AccordionPanel>
       </AccordionItem>
-
       <AccordionItem>
         <h2>
           <AccordionButton>

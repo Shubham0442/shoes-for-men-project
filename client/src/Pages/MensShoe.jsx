@@ -3,7 +3,6 @@ import {
   Flex,
   Image,
   SimpleGrid,
-  Text,
   useDisclosure,
   Drawer,
   DrawerBody,
@@ -22,9 +21,10 @@ import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
 import { getShoesData } from "../Redux/AppReducer/action";
 import FilterComponent from "../Components/FilterComponent";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Spiner from "../Components/Spiner";
 import { useState } from "react";
+import ProductCard from "../Components/ProductCard";
 
 const MensShoe = () => {
   const dispatch = useDispatch();
@@ -62,7 +62,6 @@ const MensShoe = () => {
   };
 
   let sort = searchParams.get("sortBy");
-  let pageNo = searchParams.get("page");
 
   if (sort === "asc")
     shoesData.sort(function (a, b) {
@@ -81,16 +80,16 @@ const MensShoe = () => {
           brand: searchParams.getAll("brand"),
           Rate: searchParams.getAll("Rate"),
           order: sort === "asc" ? 1 : sort === "desc" ? -1 : null,
-          limit: 9,
+          limit: 6,
           skip: skip
         }
       };
       dispatch(getShoesData(q));
     }
-  }, [location.search, pageNo]);
+  }, [location.search]);
 
   return (
-    <Box bg={"#f1f3f6"} w={"100%"} mb="20px">
+    <Box bg={"#f1f3f6"} w={"100%"} mb="20px" id="product-grid">
       <Box
         w={{ base: "80%", sm: "80%", md: "80%", lg: "80%" }}
         h={{ base: "200px", sm: "300px", md: "400px", lg: "500px" }}
@@ -117,12 +116,12 @@ const MensShoe = () => {
         display={{ base: "block", sm: "block", lg: "none" }}
         alignItems="center"
       >
-        <Box>
+        <Box w="95%" m="auto">
           <Flex
             alignItems={"center"}
             justifyContent="left"
             bg={"whiteAlpha.800"}
-            w={{ base: "14%", sm: "14%" }}
+            w={{ base: "15%", sm: "14%" }}
           >
             <Button
               size={"sm"}
@@ -135,7 +134,6 @@ const MensShoe = () => {
             </Button>
             <FiFilter />
           </Flex>
-
           <Drawer
             isOpen={isOpen}
             placement="bottom"
@@ -148,11 +146,9 @@ const MensShoe = () => {
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader>Apply Filter</DrawerHeader>
-
               <DrawerBody>
-                <FilterComponent />
+                <FilterComponent page={page} />
               </DrawerBody>
-
               <DrawerFooter>
                 <Button onClick={onClose} colorScheme="blue">
                   Apply
@@ -186,76 +182,15 @@ const MensShoe = () => {
         >
           {loading && <Spiner />}
           {shoesData.length > 0 &&
-            shoesData.map((elem) => (
-              <Box
-                key={elem._id}
-                bg={"white"}
-                _hover={{
-                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
-                }}
-              >
-                <Link to={`/mensshoe/${elem._id}`}>
-                  <Box
-                    h={{ base: "270px", sm: "300px", md: "380px", lg: "390px" }}
-                    boxSizing={"border-box"}
-                    position={"relative"}
-                    overflow={"hidden"}
-                  >
-                    <Image
-                      w={"100%"}
-                      h={{ base: "270px", sm: "300px", md: "380px" }}
-                      src={elem.cover}
-                      objectFit={"contain"}
-                      transition={"all 0.5s"}
-                      _hover={{
-                        transform: "scale(1.1)",
-                        transition: "all 0.5s"
-                      }}
-                      display={"block"}
-                    />
-                  </Box>
-                  <Box textAlign={"left"} pl="10px" pb={"10px"}>
-                    <Text
-                      fontWeight={"550"}
-                      fontSize={"15px"}
-                      color={"#8d8d8d"}
-                    >
-                      {elem.category}
-                    </Text>
-                    <Text fontWeight={"500"} fontSize={"14px"}>
-                      {elem.name}
-                    </Text>
-                    <Text fontWeight={"650"} fontSize={"12.5px"}>
-                      {elem.brand}
-                    </Text>
-                    <Text fontWeight={"650"} fontSize={"14px"}>
-                      ₹ {elem.price}
-                    </Text>
-                    <Box
-                      bg={"green"}
-                      color="white"
-                      fontWeight={"550"}
-                      fontSize={"11.5px"}
-                      w="30px"
-                      h={"25px"}
-                      p="2px"
-                      borderRadius={"3px"}
-                    >
-                      <Text>★{elem.rating}</Text>
-                    </Box>
-                  </Box>
-                </Link>
-              </Box>
-            ))}
+            shoesData.map((elem) => <ProductCard elem={elem} />)}
         </SimpleGrid>
       </Flex>
-
       <Box
         w={{ base: "70%", sm: "40%", md: "30%", lg: "10%" }}
         m={"auto"}
         mt={"20px"}
       >
-        <Flex alignItems={"center"}>
+        <Flex alignItems={"center"} justifyContent={"center"}>
           {paginationButtons?.map((el, i) => (
             <Button
               key={i}

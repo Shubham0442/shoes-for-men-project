@@ -6,7 +6,7 @@ import {
   SlideFade,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaOpencart } from "react-icons/fa";
@@ -48,9 +48,10 @@ const Navbar = () => {
     <Box w="100%" h="120px" margin="auto">
       <Flex
         direction={{ base: "row", sm: "row", md: "row", lg: "column" }}
-        justifyContent={"space-around"}
+        justifyContent="flex-start"
         alignItems="center"
         bg={"#ffcc33"}
+        gap="0"
       >
         <Box
           display={{ base: "block", sm: "block", md: "block", lg: "none" }}
@@ -60,6 +61,7 @@ const Navbar = () => {
           h="120px"
           m={"auto"}
           alignContent="center"
+          border={"1px solid"}
         >
           <IconButton
             variant={"outline"}
@@ -68,23 +70,14 @@ const Navbar = () => {
             onClick={onToggle}
           />
         </Box>
-        <Box
-          w={{ sm: "95%", md: "95%", lg: "100%", xl: "100%" }}
+        <Image
+          src="https://i.imgur.com/1kv8UNN.png"
+          w={{ sm: "38%", md: "38%", lg: "38%", xl: "20%" }}
           h="80px"
-          bg={"#ffcc33"}
-          m="auto"
-          textAlign={"left"}
-        >
-          <Link to={"/"}>
-            <Image
-              src="https://i.imgur.com/1kv8UNN.png"
-              w={{ sm: "38%", md: "38%", lg: "38%", xl: "20%" }}
-              h="80px"
-              background={"transparent"}
-              pt="15px"
-            />
-          </Link>
-        </Box>
+          border={"1px solid"}
+          background={"transparent"}
+          pt="15px"
+        />
         <Flex
           display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           w={"100%"}

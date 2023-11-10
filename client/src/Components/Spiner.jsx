@@ -9,11 +9,10 @@ import {
 import { useSelector } from "react-redux";
 
 const Spiner = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
   const loading = useSelector((state) => state.appReducer.isLoading);
 
   useEffect(() => {
-    if (loading) onOpen();
     if (loading === false) onClose();
   }, [loading]);
 

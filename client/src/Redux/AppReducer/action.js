@@ -12,7 +12,7 @@ import {
 } from "./actionTypes";
 
 export const getShoesData = (q) => (dispatch) => {
-  dispatch({ type: GET_SHOES_DATA_LOADING });
+  dispatch({ type: GET_SHOES_DATA_LOADING, payload: true });
 
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/shoes`, q)
