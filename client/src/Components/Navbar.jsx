@@ -7,7 +7,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import React, { useEffect, useMemo } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaOpencart } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
@@ -22,17 +22,20 @@ const Navbar = () => {
   const token = useSelector((state) => state.userAuthReducer.token);
   const isAdmin = useSelector((state) => state.adminAuthReducer);
   const cart = useSelector((state) => state.cartReducer.tempCart);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isOpen, onToggle } = useDisclosure();
   const activeStyle = {
     fontWeight: "650",
     fontSize: { base: "18px", md: "24px", lg: "40px" },
-    color: "#ffcc33"
+    color: "#e9ad28",
+    borderBottom: "2px solid #e9ad28"
   };
 
   const inactiveStyle = {
     fontWeight: "450",
-    color: "white"
+    color: "#646464",
+    fontWeight: "550"
   };
 
   useEffect(() => {
@@ -45,8 +48,22 @@ const Navbar = () => {
   }, [cart]);
 
   return (
-    <Box w="100%" h="120px" margin="auto">
-      <Flex
+    <Box
+      w="100%"
+      h="80px"
+      margin="auto"
+      display="flex"
+      position="fixed"
+      zIndex="1000000000000000"
+      top="0"
+      left="0"
+      right="0"
+      bg="#fff"
+      alignItems="center"
+      justifyContent="center"
+      // px={{ base: "100px" }}
+    >
+      {/* <Flex
         direction={{ base: "row", sm: "row", md: "row", lg: "column" }}
         justifyContent="flex-start"
         alignItems="center"
@@ -61,7 +78,6 @@ const Navbar = () => {
           h="120px"
           m={"auto"}
           alignContent="center"
-          border={"1px solid"}
         >
           <IconButton
             variant={"outline"}
@@ -70,14 +86,16 @@ const Navbar = () => {
             onClick={onToggle}
           />
         </Box>
-        <Image
-          src="https://i.imgur.com/1kv8UNN.png"
-          w={{ sm: "38%", md: "38%", lg: "38%", xl: "20%" }}
-          h="80px"
-          border={"1px solid"}
-          background={"transparent"}
-          pt="15px"
-        />
+        <Box onClick={() => navigate("/")} w="100%">
+          <Image
+            src="/shoes-for-men-logo.png"
+            w={{ sm: "38%", md: "38%", lg: "38%", xl: "16%" }}
+            h="80px"
+            background={"transparent"}
+            pt="15px"
+            cursor="pointer"
+          />
+        </Box>
         <Flex
           display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
           w={"100%"}
@@ -291,8 +309,8 @@ const Navbar = () => {
             </>
           )}
         </Box>
-      </Flex>
-      {
+      </Flex> */}
+      {/* {
         <SlideFade in={isOpen} onClick={onToggle}>
           <Box
             w={"100%"}
@@ -333,7 +351,41 @@ const Navbar = () => {
             </Link>
           </Box>
         </SlideFade>
-      }
+      } */}
+      <Flex w="80%" h="100%" alignItems="center" justifyContent="space-between">
+        <Flex gap="20px">
+          <Box w="90px" h="80px">
+            <Image
+              w="100%"
+              h="100%"
+              src="/shoes-for-men-logo.png"
+              objectFit="contain"
+            />
+          </Box>
+          <Flex alignItems="center" justifyContent="flex-start" gap="15px">
+            <NavLink
+              to={"/"}
+              style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to={"/mensshoe"}
+              style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+            >
+              All Products
+            </NavLink>
+          </Flex>
+        </Flex>
+        <Flex alignItems="center" justifyContent="flex-start" gap="15px">
+          <NavLink
+            to={"/login"}
+            style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+          >
+            Login
+          </NavLink>
+        </Flex>
+      </Flex>
     </Box>
   );
 };

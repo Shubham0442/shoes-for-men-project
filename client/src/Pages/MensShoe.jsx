@@ -139,7 +139,7 @@ const MensShoe = () => {
             placement="bottom"
             onClose={onClose}
             finalFocusRef={btnRef}
-            size="xs"
+            size="sm"
             p={"20px"}
           >
             <DrawerOverlay />

@@ -64,8 +64,8 @@ const Register = () => {
   };
 
   return (
-    <Box>
-      <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }}>
+    <Box w="80%" h="600px" m="auto">
+      {/* <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }}>
         <Button
           display={{ base: "none", sm: "none", md: "block", lg: "block" }}
           border={"0"}
@@ -185,12 +185,8 @@ const Register = () => {
             </ModalBody>
           </ModalContent>
         </Modal>
-      </Box>
-      <Box
-        display={{ base: "block", sm: "block", md: "none", lg: "none" }}
-        w={"65%"}
-        m={"auto"}
-      >
+      </Box> */}
+      <Box w={{ base: "95%", sm: "95%", md: "65%", lg: "40%" }} m="auto">
         <Stack align={"center"}>
           <Heading fontSize={"20px"} textAlign={"center"} mb="20px">
             Registration
@@ -198,11 +194,15 @@ const Register = () => {
         </Stack>
         <form onSubmit={handleSubmit}>
           <Flex
-            direction={{ base: "column", sm: "row", md: "row" }}
-            justifyContent="space-evenly"
-            gap={"5px"}
+            w="100%"
+            direction={{ base: "column", sm: "row", md: "row", lg: "row" }}
+            justifyContent="space-between"
+            gap={"10px"}
           >
-            <Box mb={"4px"}>
+            <Box
+              mb={"4px"}
+              w={{ base: "100%", sm: "100%", md: "50%", lg: "50%" }}
+            >
               <FormLabel>First Name</FormLabel>
               <Input
                 type={"text"}
@@ -213,7 +213,10 @@ const Register = () => {
                 onChange={handleRegistration}
               />
             </Box>
-            <Box mb={"4px"}>
+            <Box
+              mb={"4px"}
+              w={{ base: "100%", sm: "100%", md: "50%", lg: "50%" }}
+            >
               <FormLabel>Last Name</FormLabel>
               <Input
                 type={"text"}
@@ -274,14 +277,14 @@ const Register = () => {
             </Button>
           </Stack>
         </form>
-        <Stack pt={6}>
-          <Text align={"center"}>
-            Already a user?{" "}
-            <Link to={"/login"} color={"blue.400"}>
+        <Box pt="20px" fontWeight="500">
+          <Text align={"center"}>Already a user?</Text>
+          <Box color={"blue.400"}>
+            <Link to={"/login"} >
               Login
             </Link>
-          </Text>
-        </Stack>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

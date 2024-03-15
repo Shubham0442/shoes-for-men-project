@@ -74,8 +74,8 @@ const Login = () => {
   };
 
   return (
-    <Box>
-      <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }}>
+    <Box w="80%" h="600px" m="auto">
+      {/* <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }}>
         <Button
           display={{ base: "none", sm: "none", md: "block", lg: "block" }}
           border={"0"}
@@ -167,12 +167,8 @@ const Login = () => {
             </ModalBody>
           </ModalContent>
         </Modal>
-      </Box>
-      <Box
-        display={{ base: "block", sm: "block", md: "none", lg: "none" }}
-        w={"65%"}
-        m={"auto"}
-      >
+      </Box> */}
+      <Box w={{ base: "95%", sm: "95%", md: "65%", lg: "30%" }} m="auto">
         <Stack align={"center"}>
           <Heading fontSize={"20px"} textAlign={"center"} mb="20px">
             Login
@@ -218,14 +214,12 @@ const Login = () => {
             </Button>
           </Stack>
         </form>
-        <Stack pt={6}>
-          <Text align={"center"}>
-            Not registered yet?{" "}
-            <Link to={"/register"} color={"blue.400"}>
-              Register
-            </Link>
-          </Text>
-        </Stack>
+        <Box pt="20px" fontWeight="500">
+          <Text align={"center"}>Not registered yet?</Text>
+          <Box color={"blue.400"}>
+            <Link to={"/register"}>Register</Link>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
