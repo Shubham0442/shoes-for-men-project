@@ -187,7 +187,7 @@ const Register = () => {
         </Modal>
       </Box> */}
       <Box w={{ base: "95%", sm: "95%", md: "65%", lg: "40%" }} m="auto">
-        <Stack align={"center"}>
+        <Stack align="center" mt="10px">
           <Heading fontSize={"20px"} textAlign={"center"} mb="20px">
             Registration
           </Heading>
@@ -280,9 +280,7 @@ const Register = () => {
         <Box pt="20px" fontWeight="500">
           <Text align={"center"}>Already a user?</Text>
           <Box color={"blue.400"}>
-            <Link to={"/login"} >
-              Login
-            </Link>
+            <Link to={"/login"}>Login</Link>
           </Box>
         </Box>
       </Box>

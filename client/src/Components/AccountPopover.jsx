@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Avatar, Box } from "@chakra-ui/react";
 import React from "react";
 import {
   Drawer,
@@ -61,14 +61,23 @@ const AccountPopover = () => {
       <Box display={{ base: "none", sm: "none", md: "none", lg: "block" }}>
         <Popover>
           <PopoverTrigger>
-            <Button variant={"unstyled"}>
-              {authUser?.userData?.cosign === "user" ? (
-                authUser?.userData?.firstname
-              ) : authUser?.userData?.cosign === "Admin" ? (
-                `${authUser?.userData?.firstname}(Admin)`
-              ) : (
-                <></>
-              )}
+            <Button variant="unstyled">
+              <Avatar
+                size="sm"
+                name={
+                  authUser?.userData?.cosign === "user" ? (
+                    authUser?.userData?.firstname +
+                    " " +
+                    authUser?.userData?.lastname
+                  ) : authUser?.userData?.cosign === "Admin" ? (
+                    `${authUser?.userData?.firstname}(Admin)` +
+                    " " +
+                    authUser?.userData?.lastname
+                  ) : (
+                    <></>
+                  )
+                }
+              />
             </Button>
           </PopoverTrigger>
           <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
