@@ -186,7 +186,11 @@ const Register = () => {
           </ModalContent>
         </Modal>
       </Box> */}
-      <Box w={{ base: "95%", sm: "95%", md: "65%", lg: "40%" }} m="auto">
+      <Box
+        w={{ base: "95%", sm: "95%", md: "65%", lg: "40%" }}
+        m="auto"
+        mt="30px"
+      >
         <Stack align="center" mt="10px">
           <Heading fontSize={"20px"} textAlign={"center"} mb="20px">
             Registration
@@ -265,7 +269,7 @@ const Register = () => {
             <Button
               loadingText="Submitting"
               size="md"
-              bg={"green.400"}
+              bg="var(--primary)"
               color={"white"}
               _hover={{
                 bg: "yellow.400"

@@ -9,6 +9,7 @@ import {
 } from "../Redux/CartRedux/action";
 import { useNavigate } from "react-router-dom";
 import Spiner from "../Components/Spiner";
+import cart_empty from "../Assets/cart_empty.jpeg";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cartReducer.tempCart);
@@ -289,11 +290,10 @@ const Cart = () => {
         >
           <Image
             display={"block"}
-            src={
-              "https://nexispro.com/wp-content/uploads/2020/09/empty-cart.jpg"
-            }
+            src={cart_empty}
             alt={"emptyCart"}
             mb={"10px"}
+            borderRadius="8px"
           />
           <Button
             bg={"#3470e4 "}

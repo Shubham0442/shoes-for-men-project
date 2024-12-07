@@ -1,10 +1,7 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image } from "@chakra-ui/react";
 import React from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import HomeHeroSection from "../Components/HomeHeroSection";
 
 const Home = () => {
   const banners = [
@@ -19,32 +16,37 @@ const Home = () => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true
+    autoplay: true,
+    fade: true,
+    innerWidth: "100%"
   };
 
   return (
     <Box w={{ base: "100%" }} m="auto">
       <Box
-        w={{ base: "80%", sm: "80%", md: "80%", lg: "80%" }}
-        h={{ base: "200px", sm: "300px", md: "400px", lg: "500px" }}
+        w={"100%"}
+        h={{ base: "200px", sm: "300px", md: "450px", lg: "530px" }}
         m={"auto"}
         pt="2px"
+        mb="20px"
       >
-        <Slider {...settings}>
-          {banners.map((ele) => (
-            <Box key={ele}>
-              <Image
-                w={{ lg: "100%" }}
-                h={{ base: "150px", sm: "250px", md: "350px", lg: "450px" }}
-                src={ele}
-              />
-            </Box>
-          ))}
-        </Slider>
+        <Box w="100%" h="100%" bg="#f5fbff">
+          <HomeHeroSection />
+        </Box>
+      </Box>
+      <Box w="100%" h="auto" m="auto">
+        <Flex alignItems="center" justifyContent="space-between">
+          <Heading>Most Popular</Heading>
+          <Flex>
+            <Button></Button>
+            <Button></Button>
+          </Flex>
+        </Flex>
+        <Flex></Flex>
       </Box>
       <Link to={"mensshoe"}>
         <Flex
-          w={{ base: "80%", sm: "80%", md: "85%", lg: "80%" }}
+          w={{ base: "95%", sm: "95%", md: "95%", lg: "100%" }}
           m="auto"
           h={{ base: "150px", sm: "250px", md: "300px", lg: "400px" }}
           alignItems={"center"}

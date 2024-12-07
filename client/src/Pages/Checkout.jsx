@@ -143,7 +143,7 @@ const Checkout = () => {
                     <Box textAlign={"left"}>
                       <Button
                         variant={"solid"}
-                        bg={"#ffcc33"}
+                        bg={"var(--primary)"}
                         size={"xs"}
                         onClick={() => handleSelectDeliveryAddress(ele)}
                       >

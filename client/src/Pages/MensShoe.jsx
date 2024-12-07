@@ -25,6 +25,8 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import Spiner from "../Components/Spiner";
 import { useState } from "react";
 import ProductCard from "../Components/ProductCard";
+import banner1 from "../Assets/banner_1.jpeg";
+import banner2 from "../Assets/banner_2.jpeg";
 
 const MensShoe = () => {
   const dispatch = useDispatch();
@@ -38,7 +40,8 @@ const MensShoe = () => {
   const [skip, setSkip] = useState(0);
 
   const mensBanners = [
-    "https://www.npd.com/wp-content/uploads/2021/05/footwear-banner-1440x480.jpeg",
+    banner1,
+    banner2,
     "http://hamedsondesignstudio.co.uk/wp-content/uploads/2013/10/4ignite.jpg",
     "https://images.squarespace-cdn.com/content/v1/56e9b38c2b8dde820241b62d/1586805461470-38IYZYZ7TR83KU1BMCWM/Mens+footwear+banner.jpg"
   ];

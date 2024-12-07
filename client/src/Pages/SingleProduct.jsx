@@ -2,7 +2,7 @@ import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getShoesData } from "../Redux/AppReducer/action";
+import { getSingleProduct } from "../Redux/AppReducer/action";
 import { StarIcon } from "@chakra-ui/icons";
 import {
   Table,
@@ -14,7 +14,7 @@ import {
   TableCaption,
   TableContainer
 } from "@chakra-ui/react";
-import { addToCart, getCart } from "../Redux/CartRedux/action";
+import { addToCart } from "../Redux/CartRedux/action";
 
 const SingleProduct = () => {
   let { _id } = useParams();
@@ -28,37 +28,50 @@ const SingleProduct = () => {
   const [currentPic, setCurrentPic] = useState("");
 
   const handleAddToCart = () => {
-    if (isUser === true && token)
-      dispatch(addToCart(currentShoe, token)).then((res) => {
+    if (isUser === true && token) {
+      let shoe = { ...currentShoe };
+      delete shoe?._id;
+      dispatch(addToCart(shoe, token)).then((res) => {
         if (res.type === "ADD_TO_CART_SUCCESS") {
-          dispatch(getCart(token));
           addProductCartToast({
             title: "Product added to Cart",
-            status: "info",
+            status: "success",
             duration: 3000,
             isClosable: true,
-            position: "top-right"
+            position: "bottom-right"
+          });
+        } else {
+          forceLoginToast({
+            title: "Something went wrong, please try again.",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+            position: "bottom-right"
           });
         }
       });
-    else
+    } else
       forceLoginToast({
         title: "Please Register / Login",
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "bottom"
+        position: "bottom-right"
       });
   };
 
   useEffect(() => {
-    if (shoeData.length === 0) dispatch(getShoesData());
-  }, [shoeData.length]);
-
-  useEffect(() => {
     if (_id) {
-      const newCurrentShoe = shoeData.find((elem) => elem._id === _id);
-      newCurrentShoe && setCurrentShoe(newCurrentShoe);
+      dispatch(getSingleProduct(_id, token))?.then((res) => {
+        console.log(res);
+        if (res?.type === "GET_SINGLE_SHOES_DATA_SUCCESS") {
+          if (
+            res?.payload?.shoeDetails &&
+            res?.payload?.shoeDetails?.length !== 0
+          )
+            setCurrentShoe(res?.payload?.shoeDetails[0]);
+        }
+      });
     }
   }, [_id, shoeData]);
 
@@ -146,7 +159,7 @@ const SingleProduct = () => {
               .map((_, i) => (
                 <StarIcon
                   key={i}
-                  color={i < currentShoe.rating ? "#ffa41c" : "gray.300"}
+                  color={i < currentShoe.rating ? "var(--primary)" : "gray.300"}
                 />
               ))}
           </Box>
@@ -155,8 +168,8 @@ const SingleProduct = () => {
             gap="10px"
           >
             <Button
-              bg={"#ffcc33"}
-              color={"black"}
+              bg={"var(--primary)"}
+              color={"white"}
               w={{ sm: "40%" }}
               onClick={handleAddToCart}
             >

@@ -8,7 +8,10 @@ import {
   ADD_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILURE,
   DELETE_PRODUCT_REQUEST,
-  DELETE_PRODUCT_SUCCESS
+  DELETE_PRODUCT_SUCCESS,
+  GET_SINGLE_SHOES_DATA_LOADING,
+  GET_SINGLE_SHOES_DATA_SUCCESS,
+  GET_SINGLE_SHOES_DATA_FAILURE
 } from "./actionTypes";
 
 export const getShoesData = (q) => (dispatch) => {
@@ -60,5 +63,26 @@ export const deleteProduct = (id, token) => (dispatch) => {
     })
     .catch(() => {
       dispatch({ type: DELETE_PRODUCT_FAILURE });
+    });
+};
+
+export const getSingleProduct = (id, token) => (dispatch) => {
+  dispatch({ type: GET_SINGLE_SHOES_DATA_LOADING });
+
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_BASE_URL}/shoes/getdetails/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => {
+      return dispatch({
+        type: GET_SINGLE_SHOES_DATA_SUCCESS,
+        payload: res?.data
+      });
+    })
+    .catch(() => {
+      dispatch({ type: GET_SINGLE_SHOES_DATA_FAILURE });
     });
 };

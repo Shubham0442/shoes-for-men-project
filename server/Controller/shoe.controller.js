@@ -90,4 +90,11 @@ shoeController.delete(
   }
 );
 
+shoeController.get("/getdetails/:id", authentication, async (req, res) => {
+  const { id } = req.params;
+  const shoeDetails = await Shoe.find({ _id: id });
+
+  res.status(201).send({ msg: "success", shoeDetails });
+});
+
 module.exports = { shoeController };

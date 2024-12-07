@@ -46,7 +46,7 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(userLogin(loginForm)).then((res) => {
-      if (res.type === "USER_LOGIN_SUCCESS") {
+      if (res?.type === "USER_LOGIN_SUCCESS") {
         dispatch(getCart(res.payload?.token)).then((resp) => {
           dispatch(getDeliveryAddress(res.payload?.token));
           dispatch(getAllOrderDetails(res.payload?.token));
@@ -60,15 +60,17 @@ const Login = () => {
           position: "top"
         });
         navigate("/");
-      } else if (res.type === "USER_LOGIN_FAILURE")
+      } else if (res?.type === "USER_LOGIN_FAILURE") {
+        console.log("USER_LOGIN_FAILURE");
         loginFailToast({
           title: "Invalid Cridentials.",
           description: "Please enter correct login cridentials.",
           status: "error",
           duration: 6000,
           isClosable: true,
-          position: "top-right"
+          position: "bottom-right"
         });
+      }
     });
     onClose();
   };
@@ -168,7 +170,11 @@ const Login = () => {
           </ModalContent>
         </Modal>
       </Box> */}
-      <Box w={{ base: "95%", sm: "95%", md: "65%", lg: "30%" }} m="auto">
+      <Box
+        w={{ base: "95%", sm: "95%", md: "65%", lg: "30%" }}
+        m="auto"
+        mt="30px"
+      >
         <Stack align={"center"}>
           <Heading fontSize={"20px"} textAlign={"center"} mb="20px">
             Login
@@ -202,7 +208,7 @@ const Login = () => {
             <Button
               loadingText="Submitting"
               size="md"
-              bg={"green.400"}
+              bg="var(--primary)"
               color={"white"}
               _hover={{
                 bg: "yellow.400"
