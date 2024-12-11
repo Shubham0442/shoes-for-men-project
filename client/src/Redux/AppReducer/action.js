@@ -22,7 +22,7 @@ export const getShoesData = (q) => (dispatch) => {
     .then((res) => {
       return dispatch({
         type: GET_SHOES_DATA_SUCCESS,
-        payload: res?.data?.shoesData
+        payload: res?.data
       });
     })
     .catch(() => {

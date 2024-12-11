@@ -6,11 +6,14 @@ import {
 
 const initState = {
   productData: [],
+  totalLength: null,
   isLoading: false,
-  isError: false
+  isError: false,
+  totalFilteredCount: null
 };
 
 export const appReducer = (state = initState, { type, payload }) => {
+  console.log(payload);
   switch (type) {
     case GET_SHOES_DATA_LOADING: {
       return {
@@ -22,7 +25,9 @@ export const appReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        productData: payload
+        productData: payload?.shoesData,
+        totalLength: payload?.totalLength,
+        totalFilteredCount: payload?.totalFilteredCount
       };
     }
     case GET_SHOES_DATA_FAILURE: {

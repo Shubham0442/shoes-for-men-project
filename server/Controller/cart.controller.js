@@ -16,9 +16,7 @@ cartController.get("/get", authentication, async (req, res) => {
 cartController.post("/add", authentication, async (req, res) => {
   const { userId } = req.body;
 
-
   const userCart = new Cart({ userIdCart: userId, ...req.body });
-  // console.log("userCart", userCart);
 
   await userCart.save();
 

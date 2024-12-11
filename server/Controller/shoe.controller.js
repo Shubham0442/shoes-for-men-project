@@ -15,15 +15,55 @@ const setQuery = (brand, category, Rate) => {
 };
 
 shoeController.get("/", async (req, res) => {
-  const { skip, limit, brand, category, Rate, order } = req.query;
+  const { skip, limit, brand, category, Rate, order, search } = req.query;
+  let aggregatePipeline = [];
+  let matchStage = {};
 
-  if (skip && limit) {
-    const query = setQuery(brand, category, Rate);
-    const shoeData = await Shoe.find(query)
-      .sort({ price: order })
-      .skip(Number(skip))
-      .limit(Number(limit));
-    res.status(200).send({ shoesData: shoeData });
+  try {
+    if (brand) matchStage.brand = { $in: brand };
+    if (category) matchStage.category = { $in: category };
+    if (Rate) matchStage.Rate = { $in: Rate };
+
+    // if (search) {
+    //   matchStage.$or = [
+    //     { brand: { $regex: search, $options: "i" } },
+    //     { category: { $regex: search, $options: "i" } },
+    //     { suitable_for: { $regex: search, $options: "i" } },
+    //     { name: { $regex: search, $options: "i" } }
+    //   ];
+    // }
+
+    if (Object.keys(matchStage).length > 0) {
+      aggregatePipeline.push({ $match: matchStage });
+    }
+
+    if (order) {
+      aggregatePipeline.push({ $sort: { price: Number(order) } });
+    }
+
+    const totalLengthData = await Shoe.countDocuments();
+
+    const shoesData = await Shoe.aggregate(aggregatePipeline)
+      .skip(Number(skip) || 0)
+      .limit(Number(limit) || 6);
+
+    if (shoesData.length === 0) {
+      return res.send({ msg: "No data found", shoesData: [] });
+    }
+
+    const totalFilteredCount = await Shoe.aggregate(aggregatePipeline).count(
+      "count"
+    );
+
+    res.send({
+      msg: "shoes data successfully loaded",
+      shoesData: shoesData,
+      totalLength: totalLengthData,
+      totalFilteredCount: totalFilteredCount[0].count
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ msg: "Internal Server Error" });
   }
 });
 
@@ -90,7 +130,7 @@ shoeController.delete(
   }
 );
 
-shoeController.get("/getdetails/:id", authentication, async (req, res) => {
+shoeController.get("/getdetails/:id", async (req, res) => {
   const { id } = req.params;
   const shoeDetails = await Shoe.find({ _id: id });
 

@@ -14,7 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getShoesData } from "../Redux/AppReducer/action";
 
-const FilterComponent = ({ page }) => {
+const FilterComponent = ({ page, changePage }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initcategoryParams = searchParams.getAll("category");
   const initialBrandParams = searchParams.getAll("brand");
@@ -55,7 +55,10 @@ const FilterComponent = ({ page }) => {
 
     if (category.includes(value))
       newCategory.splice(newCategory.indexOf(value), 1);
-    else newCategory.push(value);
+    else {
+      newCategory.push(value);
+    }
+    changePage(1);
     setCategory(newCategory);
   };
 
@@ -64,7 +67,10 @@ const FilterComponent = ({ page }) => {
     let newBrand = [...brand];
 
     if (brand.includes(value)) newBrand.splice(newBrand.indexOf(value), 1);
-    else newBrand.push(value);
+    else {
+      newBrand.push(value);
+    }
+    changePage(1);
     setBrand(newBrand);
   };
 
@@ -73,7 +79,10 @@ const FilterComponent = ({ page }) => {
     let newRating = [...Rate];
 
     if (Rate.includes(value)) newRating.splice(newRating.indexOf(value), 1);
-    else newRating.push(value);
+    else {
+      newRating.push(value);
+    }
+    changePage(1);
     setRate(newRating);
   };
 

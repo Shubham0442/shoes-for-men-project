@@ -13,7 +13,7 @@ import {
   DrawerCloseButton,
   Button
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FiFilter } from "react-icons/fi";
@@ -31,6 +31,9 @@ import banner2 from "../Assets/banner_2.jpeg";
 const MensShoe = () => {
   const dispatch = useDispatch();
   const shoesData = useSelector((state) => state.appReducer.productData);
+  const { totalFilteredCount, totalLength } = useSelector(
+    (state) => state.appReducer
+  );
   const loading = useSelector((state) => state.appReducer.isLoading);
   const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,14 +47,6 @@ const MensShoe = () => {
     banner2,
     "http://hamedsondesignstudio.co.uk/wp-content/uploads/2013/10/4ignite.jpg",
     "https://images.squarespace-cdn.com/content/v1/56e9b38c2b8dde820241b62d/1586805461470-38IYZYZ7TR83KU1BMCWM/Mens+footwear+banner.jpg"
-  ];
-
-  const paginationButtons = [
-    { page: 1 },
-    { page: 2 },
-    { page: 3 },
-    { page: 4 },
-    { page: 5 }
   ];
 
   const settings = {
@@ -82,14 +77,25 @@ const MensShoe = () => {
           category: searchParams.getAll("category"),
           brand: searchParams.getAll("brand"),
           Rate: searchParams.getAll("Rate"),
-          order: sort === "asc" ? 1 : sort === "desc" ? -1 : null,
+          order: sort === "asc" ? 1 : sort === "desc" ? -1 : 1,
           limit: 6,
-          skip: skip
+          skip: (page - 1) * 6
         }
       };
       dispatch(getShoesData(q));
     }
   }, [location.search]);
+
+  const paginationButtons = useMemo(() => {
+    if (totalFilteredCount)
+      return new Array(Math.ceil(totalFilteredCount / 6))
+        .fill(0)
+        ?.map((_, index) => {
+          return {
+            page: index + 1
+          };
+        });
+  }, [totalLength, totalFilteredCount]);
 
   return (
     <Box bg={"#f1f3f6"} w={"100%"} mb="20px" id="product-grid">
@@ -173,7 +179,7 @@ const MensShoe = () => {
           bg={"white"}
           display={{ base: "none", sm: "none", lg: "block" }}
         >
-          <FilterComponent page={page} />
+          <FilterComponent page={page} changePage={changePage} />
         </Box>
 
         <SimpleGrid
@@ -185,29 +191,45 @@ const MensShoe = () => {
         >
           {loading && <Spiner />}
           {shoesData.length > 0 &&
-            shoesData.map((elem) => <ProductCard elem={elem} />)}
+            shoesData.map((elem) => (
+              <ProductCard elem={elem} key={elem?._id} />
+            ))}
         </SimpleGrid>
       </Flex>
-      <Box
-        w={{ base: "70%", sm: "40%", md: "30%", lg: "10%" }}
-        m={"auto"}
-        mt={"20px"}
-      >
-        <Flex alignItems={"center"} justifyContent={"center"}>
-          {paginationButtons?.map((el, i) => (
-            <Button
-              key={i}
-              disabled={Number(page) === el.page}
-              onClick={() => {
-                changePage(el.page);
-                setSkip(el.page === 1 ? 0 : el.page * 9);
-              }}
-            >
-              {el.page}
-            </Button>
-          ))}
-        </Flex>
-      </Box>
+      <Flex>
+        <Box
+          w={"25%"}
+          bg="transparent"
+          display={{ base: "none", sm: "none", lg: "block" }}
+        ></Box>
+        <Box
+          w={{ base: "70%", sm: "40%", md: "30%", lg: "10%" }}
+          m="auto"
+          h="50px"
+          mt="20px"
+          mb="20px"
+        >
+          <Flex alignItems="center" justifyContent="center" gap="6px">
+            {paginationButtons?.map((el, i) => (
+              <Button
+                key={i}
+                disabled={Number(page) === el.page}
+                onClick={() => {
+                  changePage(el.page);
+                  setSkip(i === 0 ? 0 : i * 6);
+                }}
+                size={{ base: "xs", sm: "sm", md: "md", lg: "md" }}
+                variant="solid"
+                bg={Number(page) === el.page ? "red" : "transparent"}
+                color={Number(page) === el.page && "var(--white)"}
+                _hover={{}}
+              >
+                {el.page}
+              </Button>
+            ))}
+          </Flex>
+        </Box>
+      </Flex>
     </Box>
   );
 };
