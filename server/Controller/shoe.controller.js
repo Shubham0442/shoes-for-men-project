@@ -24,6 +24,8 @@ shoeController.get("/", async (req, res) => {
     if (category) matchStage.category = { $in: category };
     if (Rate) matchStage.Rate = { $in: Rate };
 
+    // Added for future search functionality
+
     // if (search) {
     //   matchStage.$or = [
     //     { brand: { $regex: search, $options: "i" } },

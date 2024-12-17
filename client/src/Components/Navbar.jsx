@@ -6,6 +6,13 @@ import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPopover from "./AccountPopover";
 import { getCart } from "../Redux/CartRedux/action";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton
+} from "@chakra-ui/react";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.userAuthReducer);

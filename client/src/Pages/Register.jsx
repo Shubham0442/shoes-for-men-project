@@ -1,13 +1,6 @@
-import { Box, FormControl, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Box, Input, useToast } from "@chakra-ui/react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
   Stack,
   Heading,
@@ -15,7 +8,7 @@ import {
   FormLabel,
   Flex
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../Redux/UserAuthReducer/action";
 
@@ -27,9 +20,9 @@ const Register = () => {
     mobile: "",
     password: ""
   });
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const regToast = useToast();
+  const navigate = useNavigate();
 
   const handleRegistration = (e) => {
     let { name, value } = e.target;
@@ -59,8 +52,8 @@ const Register = () => {
           isClosable: true,
           position: "top-right"
         });
+      navigate("/login");
     });
-    onClose();
   };
 
   return (

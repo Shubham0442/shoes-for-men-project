@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@chakra-ui/react";
+import { Avatar, Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import {
   Drawer,
@@ -8,13 +8,6 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
   useDisclosure,
   Button,
   useToast
@@ -31,6 +24,7 @@ import {
   getAllOrderDetails,
   removeFromAllOrders
 } from "../Redux/orderDetailsReducer/action";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
 const AccountPopover = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,12 +35,22 @@ const AccountPopover = () => {
   const LogoutToast = useToast();
   const navigate = useNavigate();
 
+  const allLinks = [
+    { title: "My Account", route: "/myaccount" },
+    { title: "My Cart", route: "/cart" },
+    { title: "My Orders", route: "/myorders" },
+    authUser?.userData?.cosign === "Admin" && {
+      title: "Admin",
+      route: "/adm"
+    }
+  ];
+
   const handleUserLogout = () => {
     dispatch(userLogout());
     dispatch(getCart());
     LogoutToast({
       title: "Successfully Logout.",
-      description: ``,
+      description: "",
       status: "success",
       duration: 4000,
       isClosable: true,
@@ -59,54 +63,43 @@ const AccountPopover = () => {
   return (
     <>
       <Box display={{ base: "none", sm: "none", md: "none", lg: "block" }}>
-        <Popover>
-          <PopoverTrigger>
-            <Button variant="unstyled">
-              <Avatar
-                size="sm"
-                name={
-                  authUser?.userData?.cosign === "user" ? (
-                    authUser?.userData?.firstname +
-                    " " +
-                    authUser?.userData?.lastname
-                  ) : authUser?.userData?.cosign === "Admin" ? (
-                    `${authUser?.userData?.firstname}(Admin)` +
-                    " " +
-                    authUser?.userData?.lastname
-                  ) : (
-                    <></>
-                  )
-                }
-              />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>Hello</PopoverHeader>
-            <PopoverBody textAlign={"left"} pl={"100px"}>
-              <Box>
-                <Link to={"/myaccount"}>My Account</Link>
-              </Box>
-              <Box>
-                <Link to={"/cart"}>My Cart</Link>
-              </Box>
-              <Box>
-                <Link to={"/myorders"}>My Orders</Link>
-              </Box>
-              {authUser?.userData?.cosign === "Admin" && (
-                <Box>
-                  <Link to={"/adm"}>Admin</Link>
-                </Box>
-              )}
-              <Box>
-                <Button onClick={handleUserLogout} variant={"unstyled"}>
-                  Logout
-                </Button>
-              </Box>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+        <Menu>
+          <MenuButton variant="ghost">
+            <Avatar
+              size="sm"
+              name={
+                authUser?.userData?.cosign === "user" ? (
+                  authUser?.userData?.firstname +
+                  " " +
+                  authUser?.userData?.lastname
+                ) : authUser?.userData?.cosign === "Admin" ? (
+                  `${authUser?.userData?.firstname}(Admin)` +
+                  " " +
+                  authUser?.userData?.lastname
+                ) : (
+                  <></>
+                )
+              }
+            />
+          </MenuButton>
+          <MenuList w="50px" fontSize="15px">
+            {allLinks?.map((menu) => (
+              <MenuItem fontWeight="550" onClick={() => navigate(menu.route)}>
+                {menu?.title}
+              </MenuItem>
+            ))}
+            <Flex
+              alignItems="center"
+              justifyContent="flex-start"
+              pl="10px"
+              mt="5px"
+            >
+              <Button size="sm" onClick={handleUserLogout}>
+                Logout
+              </Button>
+            </Flex>
+          </MenuList>
+        </Menu>
       </Box>
       <Box display={{ base: "block", sm: "block", md: "block", lg: "none" }}>
         <Button ref={btnRef} variant={"unstyled"} onClick={onOpen}>
@@ -137,7 +130,6 @@ const AccountPopover = () => {
                 <></>
               )}{" "}
             </DrawerHeader>
-
             <DrawerBody>
               <Box onClick={onClose}>
                 <Link to={"/myaccount"}>My Account</Link>

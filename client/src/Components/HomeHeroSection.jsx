@@ -49,7 +49,7 @@ const HomeHeroSection = () => {
           <Heading
             color="var(--heading)"
             mb="10px"
-            fontSize={{ base: "25px", sm: "28px", md: "38px", lg: "50px" }}
+            fontSize={{ base: "15px", sm: "28px", md: "38px", lg: "50px" }}
           >
             Embrace Your{" "}
             <span style={{ color: "var(--primary)" }}>Comfort </span>
@@ -63,7 +63,7 @@ const HomeHeroSection = () => {
           <Box
             color="var(--para_text)"
             mb="5"
-            fontSize="sm"
+            fontSize={{ base: "10px", sm: "11px", md: "sm", lg: "sm" }}
             fontWeight="semibold"
           >
             Discover our latest collection of premium men's shoes designed for{" "}
