@@ -34,21 +34,17 @@ const Home = () => {
           <HomeHeroSection />
         </Box>
       </Box>
-      <Box w="100%" h="auto" m="auto">
+      <Box w="80%" h="auto" m="auto" mb="20px">
         <Flex alignItems="center" justifyContent="space-between">
           <Heading>Most Popular</Heading>
-          <Flex>
-            <Button></Button>
-            <Button></Button>
-          </Flex>
         </Flex>
         <Flex></Flex>
       </Box>
       <Link to={"mensshoe"}>
         <Flex
-          w={{ base: "95%", sm: "95%", md: "95%", lg: "100%" }}
+          w={{ base: "95%", sm: "95%", md: "95%", lg: "80%" }}
           m="auto"
-          h={{ base: "150px", sm: "250px", md: "300px", lg: "400px" }}
+          h={{ base: "150px", sm: "250px", md: "300px", lg: "350px" }}
           alignItems={"center"}
           gap="10px"
           mb={"20px"}
