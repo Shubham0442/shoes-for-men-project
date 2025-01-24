@@ -35,7 +35,7 @@ const Home = () => {
         </Box>
       </Box>
       <Box w="80%" h="auto" m="auto" mb="20px">
-        <Flex alignItems="center" justifyContent="space-between">
+        <Flex alignItems="center" justifyContent="space-between" mb="20px">
           <Heading>Most Popular</Heading>
         </Flex>
         <Flex></Flex>
