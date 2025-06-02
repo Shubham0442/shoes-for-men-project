@@ -106,7 +106,7 @@ const MensShoe = () => {
         pt="2px"
       >
         <Slider {...settings}>
-          {mensBanners.map((ele) => (
+          {mensBanners?.map((ele) => (
             <Box key={ele}>
               <Image
                 w={{ lg: "100%" }}
@@ -190,7 +190,8 @@ const MensShoe = () => {
           m="auto"
         >
           {loading && <Spiner />}
-          {shoesData.length > 0 &&
+          {!loading &&
+            shoesData.length > 0 &&
             shoesData.map((elem) => (
               <ProductCard elem={elem} key={elem?._id} />
             ))}

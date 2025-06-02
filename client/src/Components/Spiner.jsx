@@ -9,15 +9,25 @@ import {
 import { useSelector } from "react-redux";
 
 const Spiner = () => {
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const loading = useSelector((state) => state.appReducer.isLoading);
 
   useEffect(() => {
-    if (loading === false) onClose();
+    if (loading) {
+      onOpen();
+    } else {
+      onClose();
+    }
   }, [loading]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={"xs"}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={"xs"}
+      closeOnOverlayClick={false}
+      closeOnEsc={false}
+    >
       <ModalOverlay />
       <ModalContent
         w={"0%"}
