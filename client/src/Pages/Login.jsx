@@ -1,12 +1,6 @@
-import { Box, FormControl, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Input } from "@chakra-ui/react";
+import { useState } from "react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
   Button,
   Stack,
@@ -16,15 +10,15 @@ import {
   useToast
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../Redux/UserAuthReducer/action";
-import Register from "./Register";
 import { getCart } from "../Redux/CartRedux/action";
 import { getAllOrderDetails } from "../Redux/orderDetailsReducer/action";
 import { getDeliveryAddress } from "../Redux/deliveryAddressReducer/action";
+import ButtonLoader from "../Components/ButtonLoader";
 
 const Login = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
   const dispatch = useDispatch();
   const loginSuccessToast = useToast();
   const loginFailToast = useToast();
@@ -33,6 +27,7 @@ const Login = () => {
     email: "",
     password: ""
   });
+  const { isLoading } = useSelector((state) => state?.userAuthReducer);
 
   const handleLogin = (e) => {
     let { name, value } = e.target;
@@ -205,19 +200,23 @@ const Login = () => {
             />
           </Box>
           <Stack spacing={10} pt={2}>
-            <Button
-              loadingText="Submitting"
-              size="md"
-              bg="var(--primary)"
-              color={"white"}
-              _hover={{
-                bg: "yellow.400"
-              }}
-              borderRadius={"0px"}
-              type={"submit"}
-            >
-              Login
-            </Button>
+            {isLoading ? (
+              <ButtonLoader />
+            ) : (
+              <Button
+                loadingText="Submitting"
+                size="md"
+                bg="var(--primary)"
+                color={"white"}
+                _hover={{
+                  bg: "yellow.400"
+                }}
+                borderRadius={"0px"}
+                type={"submit"}
+              >
+                Login
+              </Button>
+            )}
           </Stack>
         </form>
         <Box pt="20px" fontWeight="500">

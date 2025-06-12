@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Input, useToast } from "@chakra-ui/react";
 import {
   Button,
@@ -9,8 +9,9 @@ import {
   Flex
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userRegister } from "../Redux/UserAuthReducer/action";
+import { useDispatch, useSelector } from "react-redux";
+import { userRegister } from "../Redux/userRegisterReducer/actions";
+import ButtonLoader from "../Components/ButtonLoader";
 
 const Register = () => {
   const [regForm, setRegForm] = useState({
@@ -23,6 +24,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const regToast = useToast();
   const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state?.userRegisterReducer);
 
   const handleRegistration = (e) => {
     let { name, value } = e.target;
@@ -44,7 +46,7 @@ const Register = () => {
         cosign: "user"
       })
     ).then((res) => {
-      if (res?.type === "USER_REGISTER_SUCCESS")
+      if (res?.type === "USER_REGISTER_SUCCESS") {
         regToast({
           title: "Registration Successful!",
           status: "success",
@@ -52,7 +54,16 @@ const Register = () => {
           isClosable: true,
           position: "top-right"
         });
-      navigate("/login");
+        navigate("/login");
+      } else {
+        regToast({
+          title: res?.payload?.msg,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right"
+        });
+      }
     });
   };
 
@@ -259,19 +270,23 @@ const Register = () => {
             />
           </Box>
           <Stack spacing={10} pt={2}>
-            <Button
-              loadingText="Submitting"
-              size="md"
-              bg="var(--primary)"
-              color={"white"}
-              _hover={{
-                bg: "yellow.400"
-              }}
-              borderRadius={"0px"}
-              type={"submit"}
-            >
-              Register
-            </Button>
+            {isLoading ? (
+              <ButtonLoader />
+            ) : (
+              <Button
+                loadingText="Submitting"
+                size="md"
+                bg="var(--primary)"
+                color={"white"}
+                _hover={{
+                  bg: "yellow.400"
+                }}
+                borderRadius={"0px"}
+                type={"submit"}
+              >
+                Register
+              </Button>
+            )}
           </Stack>
         </form>
         <Box pt="20px" fontWeight="500">

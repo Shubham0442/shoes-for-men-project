@@ -14,6 +14,7 @@ import { appReducerAdmin } from "../appReducerAdmin/appReducerAdmin";
 import { deliveryAddressReducer } from "../deliveryAddressReducer/deliveryAddressReducer";
 import { orderDetailsReducer } from "../orderDetailsReducer/orderDetailsReducer";
 import thunk from "redux-thunk";
+import { userRegisterReducer } from "../userRegisterReducer/userRegisterReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   cartReducer,
   appReducerAdmin,
   deliveryAddressReducer,
-  orderDetailsReducer
+  orderDetailsReducer,
+  userRegisterReducer
 });
 
 export const store = legacy_createStore(

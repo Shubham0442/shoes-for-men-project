@@ -1,18 +1,11 @@
 import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPopover from "./AccountPopover";
 import { getCart } from "../Redux/CartRedux/action";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton
-} from "@chakra-ui/react";
+import PagePopover from "./PagePopover";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.userAuthReducer);
@@ -63,17 +56,11 @@ const Navbar = () => {
       boxShadow="rgba(33, 35, 38, 0.1) 0px 10px 10px -10px"
     >
       <Flex w="95%" h="100%" alignItems="center" justifyContent="space-between">
-        <Flex gap="20px">
-          <Box
-            display={{ base: "flex", sm: "flex", md: "flex", lg: "none" }}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <HamburgerIcon fontSize="25px" />
-          </Box>
+        <Flex gap="10px">
+          <PagePopover />
           <Box
             w={{ base: "70px", sm: "80px", md: "90px", lg: "100px" }}
-            h={{ base: "60px", sm: "70px", md: "80px", lg: "90px" }}
+            h={{ base: "80px", sm: "80px", md: "80px", lg: "90px" }}
             onClick={() => navigate("/")}
           >
             <Image

@@ -156,7 +156,7 @@ const MensShoe = () => {
               <DrawerCloseButton />
               <DrawerHeader>Apply Filter</DrawerHeader>
               <DrawerBody>
-                <FilterComponent page={page} />
+                <FilterComponent page={page} changePage={changePage}/>
               </DrawerBody>
               <DrawerFooter>
                 <Button onClick={onClose} colorScheme="blue">
