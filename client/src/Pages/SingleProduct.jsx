@@ -15,6 +15,7 @@ import {
   TableContainer
 } from "@chakra-ui/react";
 import { addToCart } from "../Redux/CartRedux/action";
+import ButtonLoader from "../Components/ButtonLoader";
 
 const SingleProduct = () => {
   let { _id } = useParams();
@@ -22,6 +23,7 @@ const SingleProduct = () => {
   const isUser = useSelector((state) => state.userAuthReducer.isAuthUser);
   const token = useSelector((state) => state.userAuthReducer.token);
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state?.cartReducer);
   const addProductCartToast = useToast();
   const forceLoginToast = useToast();
   const [currentShoe, setCurrentShoe] = useState({});
@@ -31,8 +33,8 @@ const SingleProduct = () => {
     if (isUser === true && token) {
       let shoe = { ...currentShoe };
       delete shoe?._id;
-      dispatch(addToCart(shoe, token)).then((res) => {
-        if (res.type === "ADD_TO_CART_SUCCESS") {
+      dispatch(addToCart(shoe, token))?.then((res) => {
+        if (res?.type === "ADD_TO_CART_SUCCESS") {
           addProductCartToast({
             title: "Product added to Cart",
             status: "success",
@@ -80,6 +82,8 @@ const SingleProduct = () => {
       currentShoe?.images?.push(currentShoe.cover);
     else if (currentShoe?.images?.length === 5) setCurrentPic(a);
   };
+
+  console.log("isLoading", isLoading);
 
   return (
     <Box w={{ lg: "80%" }} m="auto" pt={"20px"} pb="20px">
@@ -167,17 +171,23 @@ const SingleProduct = () => {
             direction={{ base: "column", sm: "row", md: "row", lg: "row" }}
             gap="10px"
           >
-            <Button
-              bg={"var(--primary)"}
-              color={"white"}
-              w={{ sm: "40%" }}
-              onClick={handleAddToCart}
-            >
-              Add To Cart
-            </Button>
-            <Button bg={"#8d8d8d "} color={"white"} w={{ sm: "40%" }}>
-              Add To Wishlist
-            </Button>
+            {isLoading ? (
+              <ButtonLoader />
+            ) : (
+              <>
+                <Button
+                  bg={"var(--primary)"}
+                  color={"white"}
+                  w={{ sm: "40%" }}
+                  onClick={handleAddToCart}
+                >
+                  Add To Cart
+                </Button>
+                <Button bg={"#8d8d8d "} color={"white"} w={{ sm: "40%" }}>
+                  Add To Wishlist
+                </Button>
+              </>
+            )}
           </Flex>
           <Box>
             <TableContainer>
